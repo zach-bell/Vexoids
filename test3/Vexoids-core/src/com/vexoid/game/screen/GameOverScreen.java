@@ -15,6 +15,7 @@ import com.vexoid.game.camera.OrthoCamera;
 public class GameOverScreen extends Screen{
 	private OrthoCamera camera;
 	String gameDifficulty;
+	private ScreenManager screenManager;
 	
 	BitmapFont displayTitleFont;
 	BitmapFont displayGameDifficultyFont;
@@ -28,7 +29,8 @@ public class GameOverScreen extends Screen{
 	TextButtonStyle textButtonStyle;
 	Skin buttonSkin;
 	
-	public void create(String difficulty) {
+	public void create(ScreenManager screenManager, String difficulty) {
+		this.screenManager = screenManager;
 		gameDifficulty = difficulty;
 		camera = new OrthoCamera();
 		camera.resize();
@@ -55,7 +57,7 @@ public class GameOverScreen extends Screen{
 		});
 	}
 		public void startButtonClicked(){
-			ScreenManager.setScreen(new MenuScreen(), gameDifficulty);
+			screenManager.setScreen(new MenuScreen(), gameDifficulty);
 		}
 	public void update() {
 		camera.update();

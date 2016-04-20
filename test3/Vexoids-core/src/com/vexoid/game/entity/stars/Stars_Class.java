@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
+import com.vexoid.game.MainGame;
 import com.vexoid.game.TextureManager;
 
 public class Stars_Class{
@@ -60,6 +61,6 @@ public class Stars_Class{
 		direction.scl(Gdx.graphics.getDeltaTime());
 	}
 	public boolean checkEnd() {
-		return pos.y <= 0-texture.getHeight();
+		return (pos.y <= 0-texture.getHeight() || pos.x > MainGame.WIDTH);
 	}
 }

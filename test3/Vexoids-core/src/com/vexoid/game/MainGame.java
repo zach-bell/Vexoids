@@ -6,7 +6,6 @@ import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.vexoid.game.screen.MenuScreen;
-import com.vexoid.game.screen.Screen;
 import com.vexoid.game.screen.ScreenManager;
 
 public class MainGame extends ApplicationAdapter {
@@ -14,48 +13,49 @@ public class MainGame extends ApplicationAdapter {
 	public static int WIDTH = 800, HEIGHT = 600;
 	private SpriteBatch batch;
 	
-	public String difficulty = "medium";
+	private static String difficulty = "medium";
 
 	static Music CurrentMusic;
-	
-	Screen screen;
+	ScreenManager screenManager = new ScreenManager();
 	
 	public void create () {
 		batch = new SpriteBatch();
-		ScreenManager.setScreen(new MenuScreen(), difficulty);
+		screenManager.setScreen(new MenuScreen(), difficulty);
 			    
 	    System.out.println("Difficulty = " + difficulty);
 	}
 	public void render () {
-		ScreenManager.screenManagement();
+		screenManager.screenManagement();
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		
-		if (ScreenManager.getCurrentScreen() !=null) {
-			ScreenManager.getCurrentScreen().update();
-			ScreenManager.getCurrentScreen().render(batch);
+		if (screenManager.getCurrentScreen() !=null) {
+			screenManager.getCurrentScreen().update();
+			screenManager.getCurrentScreen().render(batch);
 		} else {System.out.println("Screen not there");}
 	}
 
-	public void setDifficulty(String gameDif){
-		difficulty = gameDif;
+	public static void setDifficulty(String difficulty){
+		MainGame.difficulty = difficulty;
 	}
-	
+	public static String getGameDifficulty(){
+		return difficulty;
+	}
 	public void dispose() {
-		if (ScreenManager.getCurrentScreen() !=null)
-			ScreenManager.getCurrentScreen().dispose();
+		if (screenManager.getCurrentScreen() !=null)
+			screenManager.getCurrentScreen().dispose();
 		batch.dispose();
 	}
 	public void resize(int width, int height) {
-		if (ScreenManager.getCurrentScreen() !=null)
-			ScreenManager.getCurrentScreen().resize(width, height);
+		if (screenManager.getCurrentScreen() !=null)
+			screenManager.getCurrentScreen().resize(width, height);
 	}
 	public void pause() {
-		if (ScreenManager.getCurrentScreen() !=null)
-			ScreenManager.getCurrentScreen().pause();
+		if (screenManager.getCurrentScreen() !=null)
+			screenManager.getCurrentScreen().pause();
 	}
 	public void resume() {
-		if (ScreenManager.getCurrentScreen() !=null)
-			ScreenManager.getCurrentScreen().resume();
+		if (screenManager.getCurrentScreen() !=null)
+			screenManager.getCurrentScreen().resume();
 	}
 }

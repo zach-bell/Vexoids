@@ -38,13 +38,13 @@ public class GameScreen extends Screen{
 	BitmapFont displayLevelFont;
 	BitmapFont displayIntroTextFont;
 	
-	public void create(String difficulty) {
+	public void create(ScreenManager screenManager, String difficulty) {
 		gameDifficulty = difficulty;
 		camera = new OrthoCamera();
 		camera.resize();
 		
-		entityManager = new EntityManager(camera, gameDifficulty);
-		timeManager = new TimeManager(gameDifficulty);
+		entityManager = new EntityManager(camera,screenManager ,gameDifficulty);
+		timeManager = new TimeManager(screenManager, gameDifficulty);
 		
 	    displayDistanceFont = new BitmapFont();
 	    displayScoreFont = new BitmapFont();

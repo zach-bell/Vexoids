@@ -10,17 +10,19 @@ import com.vexoid.game.screen.ScreenManager;
 
 public class TimeManager{
 
+	private final ScreenManager screenManager;
 	private int internalCounter = 0;
 	private int COUNTER = 0;
 	private int distance = 0;
 	private int counterScore = 0;
-	private int level = 0;
+	private int level = 1;
 	private String difficulty;
 	int step = 1,modifier = 0,basicEnemiesCount = 3,AdvancedEnemiesCount = -2,LaserEnemiesCount=-1,
 				secondIncrease = 30,ran = MathUtils.random(0,3);
 //	EntityManager entityManager;
 	
-	public TimeManager(String difficulty) {
+	public TimeManager(ScreenManager screenManager,String difficulty) {
+		this.screenManager = screenManager;
 		this.difficulty = difficulty;
 		if(difficulty=="hard"){
 			modifier = 1;
@@ -32,8 +34,8 @@ public class TimeManager{
 			modifier = 0;
 		}
 	}
-	int[] oneTimeFires = {0,0,0};	//	Have 2
-	int [] bossOneTimeFires = {0,0};	// Have 0
+	private int[] oneTimeFires = {0,0,0};	//	Have 2
+	//private int [] bossOneTimeFires = {0,0};	// Have 0
 	public void update(){
 		internalCounter ++;
 
@@ -61,7 +63,7 @@ public class TimeManager{
 		// conditions for certain levels
 		if(level == -1){
 			if(COUNTER >= 5){
-				ScreenManager.setScreen(new GameOverScreen(), difficulty);
+				screenManager.setScreen(new GameOverScreen(), difficulty);
 			}
 		}
 		// Start levels
@@ -78,6 +80,9 @@ public class TimeManager{
 				COUNTER = 0;
 			}
 		}
+	/*
+	 * 	Level 1
+	 */
 		if(level == 1){
 			if(step == 1)
 				if(noEnemies()){
@@ -88,7 +93,6 @@ public class TimeManager{
 						step = 2;
 						COUNTER = 15;
 					}
-					System.out.println("Is on step 1");
 				}
 			if(step ==2)
 				if(noEnemies()){
@@ -99,13 +103,11 @@ public class TimeManager{
 						step = 3;
 						COUNTER=0;
 					}
-					System.out.println("Is on step 2");
 				}
 			if(step ==3){
 				if(noEnemies()){
 					addBasicLaserEnemy();
 					addBasicEnemy();
-					System.out.println("Is on step 3");
 				}
 				if(COUNTER >= 15){
 					step = 4;
@@ -114,15 +116,14 @@ public class TimeManager{
 			if(step ==4){
 				if(noEnemies()){
 					addBasicLaserEnemy();
-					addBasicEnemy();
-					System.out.println("Is on step 4");
+					addAdvancedEnemy();
 				}
 				if(COUNTER >= 30)
 					step = 5;
 			}
 			if(step ==5){
 				if(noEnemies()){
-					for (int i = 0; i <3 + modifier; i++) {
+					for (int i = 0; i < 2 + modifier; i++) {
 						addBasicEnemy();
 					}
 					addAdvancedEnemy();

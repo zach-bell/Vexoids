@@ -74,10 +74,13 @@ public class Player extends Entity{
 	public boolean playerOutOfLives(){
 		return playerOutOfLives;
 	}
+
+//	Player hitbox
 	public Rectangle getBounds() {
-		return new Rectangle((pos.x + (texture.getWidth()/2)), (pos.y + (texture.getHeight()/2)),
-				(texture.getWidth()- (texture.getWidth()/1.5f)), (texture.getHeight()-(texture.getHeight()/2)));
+		return new Rectangle((pos.x + ((texture.getWidth()/2)/1.25f)), (pos.y + ((texture.getHeight()/2)/1.25f)),
+				(texture.getWidth()- (texture.getWidth()/1.25f)), (texture.getHeight()-(texture.getHeight()/1.25f)));
 	}
+
 	public String shootingMode(){
 		return shootingMode;
 	}
@@ -160,13 +163,13 @@ public class Player extends Entity{
 		} else
 		if (Gdx.input.isKeyPressed(Keys.F)&& Switch2 != 1 && Toggle2 == 2){
 			bulletMode = "heavy";
-			shootDelay = 100;
+			shootDelay = 50;
 			SoundManager.sound1.play(1);
 			Toggle2 = 3;
 		} else
 		if (Gdx.input.isKeyPressed(Keys.F)&& Switch2 != 1 && Toggle2 == 3){
 			bulletMode = "light";
-			shootDelay = 20;
+			shootDelay = 17;
 			SoundManager.sound1.play(1);
 			Toggle2 = 1;
 		}			
@@ -175,26 +178,35 @@ public class Player extends Entity{
 		else
 			Switch2 = 0;
 		
+//	Shoot bullets
 		Vector2 point1 = new Vector2(pos.cpy().add(-14, TextureManager.PLAYER.getHeight()/2));
 		Vector2 point2 = new Vector2(pos.cpy().add(TextureManager.PLAYER.getWidth()-17,TextureManager.PLAYER.getHeight()/2));
-		int var = MathUtils.random(2,5);
-		
+		float var = MathUtils.random(2,6);
+		float var2 = 3;
 		
 		if (Gdx.input.isKeyPressed(Keys.SPACE) || dir ==1 || dir == 2){
 			if(bulletMode == "light")
-			if (System.currentTimeMillis() - lastFire >= shootDelay) {
-				entityManager.addEntity(new Blue_Bullet2(pos.cpy().add(TextureManager.PLAYER.getWidth()/2-16,
-						TextureManager.PLAYER.getHeight()-10), new Vector2(MathUtils.random(-spread, spread), 18)));
-				SoundManager.shot2.play(0.2f);
-				lastFire = System.currentTimeMillis();
-			}
-			if(bulletMode == "heavy")
-			if (System.currentTimeMillis() - lastFire >= shootDelay) {
-					entityManager.addEntity(new Red_Bullet2(pos.cpy().add(TextureManager.PLAYER.getWidth()/2-16,
-							TextureManager.PLAYER.getHeight()-10), new Vector2(MathUtils.random(-spread, spread), 18)));
+				if (System.currentTimeMillis() - lastFire >= shootDelay) {
+					int r = MathUtils.random(0,1);
+					if(r==0)
+						entityManager.addEntity(new Blue_Bullet2(point1, new Vector2(MathUtils.random(-spread, spread+var2), 18)));
+					if(r==1)
+						entityManager.addEntity(new Blue_Bullet2(point2, new Vector2(MathUtils.random(-spread-var2, spread), 18)));
+				
 					SoundManager.shot2.play(0.2f);
 					lastFire = System.currentTimeMillis();
-			}
+				}
+			if(bulletMode == "heavy")
+				if (System.currentTimeMillis() - lastFire >= shootDelay) {
+					int r = MathUtils.random(0,1);
+					if(r==0)
+						entityManager.addEntity(new Red_Bullet2(point1, new Vector2(MathUtils.random(-spread, spread+var2), 18)));
+					if(r==1)
+						entityManager.addEntity(new Red_Bullet2(point2, new Vector2(MathUtils.random(-spread-var2, spread), 18)));
+					
+					SoundManager.shot2.play(0.2f);
+					lastFire = System.currentTimeMillis();
+				}
 			if(bulletMode == "energy")
 				if (System.currentTimeMillis() - lastFire >= shootDelay) {
 					int r = MathUtils.random(0,1);
@@ -204,7 +216,7 @@ public class Player extends Entity{
 						entityManager.addEntity(new Yellow_Bullet2(point2, new Vector2(MathUtils.random(-spread, spread+var), 10)));
 					SoundManager.shot3.play(0.1f);
 					lastFire = System.currentTimeMillis();
-			}
+				}
 		}
 	}
 }

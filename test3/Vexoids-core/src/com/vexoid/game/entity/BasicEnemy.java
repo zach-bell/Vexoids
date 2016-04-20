@@ -12,11 +12,10 @@ public class BasicEnemy extends Entity {
 
 	private String gameDifficulty;
 	private long lastFire;
-	private int firePower = 4;
-	public int timeDelay;
-	public int shotDelay;
-	private int ranLimit;
-	private int ran;
+	
+	public int timeDelay, shotDelay;
+	private int ranLimit, ran, firePower = 4;
+	
 	float initSpeed = (gameDifficulty == "hard"? 0.75f : (gameDifficulty== "medium"? 0.3f : (gameDifficulty== "easy"? 0.25f : 0.25f)));
 	
 	public BasicEnemy(Vector2 pos, Vector2 direction, EntityManager entityManager, String difficulty) {

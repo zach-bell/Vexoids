@@ -4,7 +4,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public abstract class Screen {
 	
-	public abstract void create(String difficulty);
+	public abstract void create(ScreenManager screenManager,String difficulty);
 	
 	public abstract void update();
 	

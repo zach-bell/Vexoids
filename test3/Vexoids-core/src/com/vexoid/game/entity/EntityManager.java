@@ -16,6 +16,10 @@ import com.vexoid.game.entity.bullets.LaserBullet1;
 import com.vexoid.game.entity.bullets.Red_Bullet2;
 import com.vexoid.game.entity.bullets.Yellow_Bullet2;
 import com.vexoid.game.entity.bullets.bullet1;
+import com.vexoid.game.entity.effects.BlastEffect;
+import com.vexoid.game.entity.effects.Effect1;
+import com.vexoid.game.entity.effects.Effect2;
+import com.vexoid.game.entity.effects.Effect3_LaserWarning;
 import com.vexoid.game.entity.stars.Stars_Class;
 import com.vexoid.game.screen.ScreenManager;
 
@@ -23,7 +27,7 @@ public class EntityManager {
 	
 	private final Array<Entity> entities = new Array<Entity>();
 	private final Array<Stars_Class> stars = new Array<Stars_Class>();
-	
+	private final ScreenManager screenManager;
 	private static Player player;
 	public static int basicEnemiesCount =2;
 	public static int AdvancedEnemiesCount =-1;
@@ -36,7 +40,8 @@ public class EntityManager {
 	public static int lives;
 	public int modifier=0;
 	
-	public EntityManager(OrthoCamera camera, String difficulty) {
+	public EntityManager(OrthoCamera camera, ScreenManager screenManager, String difficulty) {
+		this.screenManager = screenManager;
 		player = new Player(new Vector2(MainGame.WIDTH/2-TextureManager.PLAYER.getWidth()/2, 15),
 				new Vector2(0, 0), this, camera);
 		
@@ -262,7 +267,7 @@ part of it
 						SoundManager.hit4.play(0.8f);
 						enemiesKilled += 100;
 						nullEnemiesKilled += 100;
-						doExplosion(e.pos.cpy(), 25, e.texture, 5, "red");
+						doExplosion(e.pos.cpy(), 25, e.texture, 5, "blue");
 						entities.removeValue(e, false);
 					}
 				}
@@ -316,10 +321,10 @@ part of it
 					doBlastEffect(m.pos.cpy(),10,m.texture, "blue");
 					SoundManager.hit1.play(0.7f);
 					if (e.entityDied){
-						SoundManager.hit4.play(0.8f);
+						SoundManager.hit1.play(0.8f);
 						enemiesKilled += 100;
 						nullEnemiesKilled += 100;
-						doExplosion(e.pos.cpy(), 25, e.texture, 5, "red");
+						doExplosion(e.pos.cpy(), 25, e.texture, 5, "blue");
 						entities.removeValue(e, false);
 					}
 				}
@@ -543,7 +548,7 @@ part of it
 		return player.bulletMode();
 	}
 	public void listenForKeys(){
-		if (Gdx.input.isKeyPressed(Keys.ESCAPE)&& (ScreenManager.getCurrentScreen().whatScreen() == "GameScreen")){
+		if (Gdx.input.isKeyPressed(Keys.ESCAPE)&& (screenManager.getCurrentScreen().whatScreen() == "GameScreen")){
 			endGame(true);
 		}
 	}

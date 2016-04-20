@@ -1,9 +1,10 @@
-package com.vexoid.game.entity;
+package com.vexoid.game.entity.effects;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.vexoid.game.TextureManager;
+import com.vexoid.game.entity.Entity;
 
 public class Effect2 extends Entity{
 	int internalClock = 0;

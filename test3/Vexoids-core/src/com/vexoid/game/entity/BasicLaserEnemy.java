@@ -6,6 +6,9 @@ import com.vexoid.game.MainGame;
 import com.vexoid.game.SoundManager;
 import com.vexoid.game.TextureManager;
 import com.vexoid.game.entity.bullets.LaserBullet1;
+import com.vexoid.game.entity.effects.BlastEffect;
+import com.vexoid.game.entity.effects.Effect1;
+import com.vexoid.game.entity.effects.Effect3_LaserWarning;
 
 public class BasicLaserEnemy extends Entity {
 	String gameDifficulty;

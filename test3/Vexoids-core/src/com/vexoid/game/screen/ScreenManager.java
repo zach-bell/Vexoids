@@ -2,34 +2,41 @@ package com.vexoid.game.screen;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
+import com.vexoid.game.MainGame;
 import com.vexoid.game.SoundManager;
 
 public class ScreenManager {
 	
-	private static Screen currentScreen;
-	private static String Difficulty;
+	private Screen currentScreen;
+	private String difficulty;
+	private static int wait = 0;
 	
-	public static void setScreen(Screen screen, String difficulty) {
-		Difficulty = difficulty;
+	public void setScreen(Screen screen, String difficulty) {
+		this.difficulty = difficulty;
 		if (currentScreen !=null) currentScreen.dispose();
 		currentScreen = screen;
-		currentScreen.create(difficulty);
+		currentScreen.create(this, difficulty);
 	}
 	
-	public static Screen getCurrentScreen() {
+	public Screen getCurrentScreen() {
 		return currentScreen;
 	}
-	public static void screenManagement(){
-		if (Gdx.input.isKeyPressed(Keys.ENTER)&& (ScreenManager.getCurrentScreen().whatScreen() == "MenuScreen")){
-			ScreenManager.getCurrentScreen().dispose();
-			SoundManager.stopMusic();
-			ScreenManager.setScreen(new GameScreen(), Difficulty);
+	public void screenManagement(){
+		difficulty = MainGame.getGameDifficulty();
+		if(wait > 0){
+			wait --;
 		}
-		if (Gdx.input.isKeyPressed(Keys.ENTER)&& (ScreenManager.getCurrentScreen().whatScreen() == "GameOverScreen")){
-			ScreenManager.getCurrentScreen().dispose();
+		if (Gdx.input.isKeyPressed(Keys.ENTER) && (getCurrentScreen().whatScreen() == "MenuScreen") && wait == 0){
+			getCurrentScreen().dispose();
 			SoundManager.stopMusic();
-			ScreenManager.setScreen(new MenuScreen(), Difficulty);
+			setScreen(new GameScreen(), difficulty);
+			wait = 100;
 		}
-		
+		if (Gdx.input.isKeyPressed(Keys.ENTER) && (getCurrentScreen().whatScreen() == "GameOverScreen") && wait == 0){
+			getCurrentScreen().dispose();
+			SoundManager.stopMusic();
+			setScreen(new MenuScreen(), difficulty);
+			wait = 100;
+		}		
 	}
 }

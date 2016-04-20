@@ -5,26 +5,28 @@ import com.badlogic.gdx.graphics.Texture;
 
 public class TextureManager {
 
+	public static Texture TITLE_IMAGE = new Texture(Gdx.files.internal("assets/image/Vexoids Title.png"));
+	
 	public static Texture PLAYER = new Texture(Gdx.files.internal("assets/image/ship2.png"));
+	
 	public static Texture BASIC_ENEMY = new Texture(Gdx.files.internal("assets/image/jellies2.png"));
 	public static Texture ADVANCED_ENEMY = new Texture(Gdx.files.internal("assets/image/jellies3.png"));
+	public static Texture LASER_ENEMY = new Texture(Gdx.files.internal("assets/image/enemyship_2.png"));
+
 	public static Texture BOSS_1 = new Texture(Gdx.files.internal("assets/image/jelly boss.png"));
 	
-	public static Texture BLUE_BULLET2 = new Texture(Gdx.files.internal("assets/image/bullets/blue-bullet2.png"));
-	public static Texture RED_BULLET2 = new Texture(Gdx.files.internal("assets/image/bullets/red-bullet2.png"));
-	public static Texture YELLOW_BULLET2 = new Texture(Gdx.files.internal("assets/image/bullets/yellow-bullet2.png"));
-	
-	
-	public static Texture LASER_ENEMY = new Texture(Gdx.files.internal("assets/image/enemyship_2.png"));
-	public static Texture LASER_WARNING1 = new Texture(Gdx.files.internal("assets/image/bullets/laser-indicator1.png"));
-	public static Texture LASER_WARNING2 = new Texture(Gdx.files.internal("assets/image/bullets/laser-indicator2.png"));
-	
-
+//	Bullets
+	//	Player Bullets
 	public static Texture BULLET1 = new Texture(Gdx.files.internal("assets/image/bullets/bullet1.png"));
 	public static Texture BULLET1r = new Texture(Gdx.files.internal("assets/image/bullets/bullet1-r.png"));
 	public static Texture BULLET1y = new Texture(Gdx.files.internal("assets/image/bullets/bullet1-y.png"));
 	public static Texture BULLET1g = new Texture(Gdx.files.internal("assets/image/bullets/bullet1-g.png"));
 	public static Texture BULLET1b = new Texture(Gdx.files.internal("assets/image/bullets/bullet1-b.png"));
+
+	//	Enemy Bullets
+	public static Texture BLUE_BULLET2 = new Texture(Gdx.files.internal("assets/image/bullets/blue-bullet2.png"));
+	public static Texture RED_BULLET2 = new Texture(Gdx.files.internal("assets/image/bullets/red-bullet2.png"));
+	public static Texture YELLOW_BULLET2 = new Texture(Gdx.files.internal("assets/image/bullets/yellow-bullet2.png"));
 	
 	public static Texture LASER_BULLET = new Texture(Gdx.files.internal("assets/image/bullets/laser1.png"));
 	public static Texture LASER_BULLET1 = new Texture(Gdx.files.internal("assets/image/bullets/laser2.png"));
@@ -33,6 +35,10 @@ public class TextureManager {
 	public static Texture LASER_BULLET4 = new Texture(Gdx.files.internal("assets/image/bullets/laser5.png"));
 
 //	General Effects
+	// Laser Warning effect
+	public static Texture LASER_WARNING1 = new Texture(Gdx.files.internal("assets/image/bullets/laser-indicator1.png"));
+	public static Texture LASER_WARNING2 = new Texture(Gdx.files.internal("assets/image/bullets/laser-indicator2.png"));
+	
 	//	Red effect
 	public static Texture RED_EFFECT1 = new Texture(Gdx.files.internal("assets/image/effects/red-effect1.png"));
 	public static Texture RED_EFFECT2 = new Texture(Gdx.files.internal("assets/image/effects/red-effect2.png"));
@@ -69,5 +75,9 @@ public class TextureManager {
 	public static Texture PLANET2 = new Texture(Gdx.files.internal("assets/image/stars/planet2.png"));
 	public static Texture PLANET2_2 = new Texture(Gdx.files.internal("assets/image/stars/planet2-1.png"));
 	
-	
+	/*
+	 * The artwork for this project was created and donated by Frank Porcello. If this project is to generate any sum of currency
+	 * some amount greater than 20% of the sum generated from this project must be sent to Frank Porcello for compensation.
+	 * Failure to follow this procedure will result in lawsuit.
+	 */
 }

@@ -213,7 +213,7 @@ part of it
 				Position.y+(texture.getWidth()/2)+MathUtils.random(-5,5)),new Vector2(0, 0), 1.5f, color));
 		}
 	}
-	private void doExplosion(Vector2 pos, int ammount,Texture texture, int size, String color){
+	public void doExplosion(Vector2 pos, int ammount,Texture texture, int size, String color){
 		Vector2 Position = pos;
 		for(int i=1; i <=ammount; i++){
 		addEntity(new BlastEffect(new Vector2(Position.x+(texture.getWidth()/2)+MathUtils.random(-5,5),
@@ -269,7 +269,7 @@ part of it
 					doBlastEffect(m.pos.cpy(),10,m.texture, "blue");
 					SoundManager.hit1.play(0.7f);
 					if (e.entityDied){
-						SoundManager.hit4.play(0.8f);
+						SoundManager.hit5.play(0.6f);
 						enemiesKilled += 100;
 						nullEnemiesKilled += 100;
 						doExplosion(e.pos.cpy(), 25, e.texture, 5, "blue");
@@ -342,7 +342,7 @@ part of it
 					doBlastEffect(m.pos.cpy(),10,m.texture, "red");
 					SoundManager.hit1.play(0.6f);
 					if (e.entityDied){
-						SoundManager.hit4.play(0.8f);
+						SoundManager.hit5.play(0.8f);
 						enemiesKilled += 250;
 						nullEnemiesKilled += 250;
 						doExplosion(e.pos.cpy(), 25, e.texture, 5, "red");
@@ -385,7 +385,7 @@ part of it
 					doBlastEffect(m.pos.cpy(),10,m.texture, "blue");
 					SoundManager.hit1.play(0.6f);
 					if (e.entityDied){
-						SoundManager.hit4.play(0.8f);
+						SoundManager.hit1.play(0.8f);
 						enemiesKilled += 500;
 						nullEnemiesKilled += 500;
 						doExplosion(e.pos.cpy(), 25, e.texture, 5, "red");
@@ -401,7 +401,7 @@ part of it
 					doBlastEffect(m.pos.cpy(),10,m.texture, "red");
 					SoundManager.hit1.play(0.6f);
 					if (e.entityDied){
-						SoundManager.hit4.play(0.8f);
+						SoundManager.hit5.play(0.8f);
 						enemiesKilled += 500;
 						nullEnemiesKilled += 500;
 						doExplosion(e.pos.cpy(), 25, e.texture, 5, "red");
@@ -417,6 +417,7 @@ part of it
 					doBlastEffect(m.pos.cpy(),10,m.texture, "yellow");
 					SoundManager.hit1.play(0.6f);
 					if (e.entityDied){
+						SoundManager.hit1.play(0.6f);
 						enemiesKilled += 500;
 						nullEnemiesKilled += 500;
 						doExplosion(e.pos.cpy(), 25, e.texture, 5, "yellow");
@@ -461,7 +462,7 @@ part of it
 						doBlastEffect(m.pos.cpy(),10,m.texture, "red");
 						SoundManager.hit1.play(0.6f);
 						if (e.entityDied()){
-							SoundManager.hit4.play(0.8f);
+							SoundManager.hit5.play(0.8f);
 							enemiesKilled += 1500;
 							nullEnemiesKilled += 1500;
 							doExplosion(e.pos.cpy(), 25, e.texture, 5, "red");
@@ -472,7 +473,7 @@ part of it
 			//	Yellow Player Bullet
 				for (Yellow_Bullet2 m : getPlayerYellowBullets()) {
 					if (e.getBounds().overlaps(m.getBounds())) {
-						e.decreaseHealth(1.5f * healthMultiplier);;
+						e.decreaseHealth(1.25f * healthMultiplier);;
 						entities.removeValue(m, false);
 						doBlastEffect(m.pos.cpy(),10,m.texture, "yellow");
 						SoundManager.hit1.play(0.6f);

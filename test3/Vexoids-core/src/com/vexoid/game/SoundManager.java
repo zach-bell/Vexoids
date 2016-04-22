@@ -18,7 +18,9 @@ public class SoundManager {
 	public static Sound hit2 = Gdx.audio.newSound(Gdx.files.internal("assets/hit2.mp3"));
 	public static Sound hit3 = Gdx.audio.newSound(Gdx.files.internal("assets/hit3.mp3"));
 	public static Sound hit4 = Gdx.audio.newSound(Gdx.files.internal("assets/hit4.mp3"));
+	public static Sound hit5 = Gdx.audio.newSound(Gdx.files.internal("assets/hit5.mp3"));
 	
+	public static Sound cry1 = Gdx.audio.newSound(Gdx.files.internal("assets/cry1.mp3"));
 	
 	public static Sound shot1 = Gdx.audio.newSound(Gdx.files.internal("assets/shot1.mp3"));
 	public static Sound shot2 = Gdx.audio.newSound(Gdx.files.internal("assets/shot2.mp3"));

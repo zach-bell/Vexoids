@@ -1,6 +1,7 @@
 package com.vexoid.game.entity;
 
 import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.math.Vector2;
 import com.vexoid.game.MainGame;
 import com.vexoid.game.SoundManager;
 import com.vexoid.game.TextureManager;
@@ -11,6 +12,7 @@ import com.vexoid.game.screen.ScreenManager;
 public class TimeManager{
 
 	private final ScreenManager screenManager;
+	private final EntityManager entityManager;
 	private int internalCounter = 0;
 	private int COUNTER = 0;
 	private int distance = 0;
@@ -19,10 +21,10 @@ public class TimeManager{
 	private String difficulty;
 	int step = 1,modifier = 0,basicEnemiesCount = 3,AdvancedEnemiesCount = -2,LaserEnemiesCount=-1,
 				secondIncrease = 30,ran = MathUtils.random(0,3);
-//	EntityManager entityManager;
 	
-	public TimeManager(ScreenManager screenManager,String difficulty) {
+	public TimeManager(ScreenManager screenManager, EntityManager entityManager,String difficulty) {
 		this.screenManager = screenManager;
+		this.entityManager = entityManager;
 		this.difficulty = difficulty;
 		if(difficulty=="hard"){
 			modifier = 1;
@@ -166,28 +168,37 @@ public class TimeManager{
 						addBasicLaserEnemy();
 					}
 					if(COUNTER >= 100){
-						step = 9;
 						COUNTER = 0;
+						step = 9;
 					}
 				}
 			}
 			if(step == 9){
 				if(noEnemies()){
 					if(bossOneTimeFires[0] == 0){
+						COUNTER = 0;
+						SoundManager.cry1.play();
 						addBoss(1);
 						bossOneTimeFires[0] = 1;
 					}
-					if(COUNTER >= 10){
+					if(COUNTER >= 30){
 					COUNTER = 0;
 					step = 10;
 					}
 				}
 			}
 			if(step == 10){
-				if(COUNTER >= 10){
+				if(noEnemies()){
+				if(COUNTER%2 == 0){
+					SoundManager.hit4.play();
+					entityManager.doExplosion(new Vector2(MathUtils.random(0, MainGame.WIDTH),
+							MathUtils.random(0, MainGame.HEIGHT)), 250, TextureManager.BOSS_1, 20, "red");
+				}
+				if(COUNTER >= 8){
 				COUNTER = 0;
 				step = 10;
 				level = 9;
+				}
 				}
 			}
 		}

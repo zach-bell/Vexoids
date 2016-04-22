@@ -44,7 +44,7 @@ public class GameScreen extends Screen{
 		camera.resize();
 		
 		entityManager = new EntityManager(camera,screenManager ,gameDifficulty);
-		timeManager = new TimeManager(screenManager, gameDifficulty);
+		timeManager = new TimeManager(screenManager, entityManager,gameDifficulty);
 		
 	    displayDistanceFont = new BitmapFont();
 	    displayScoreFont = new BitmapFont();

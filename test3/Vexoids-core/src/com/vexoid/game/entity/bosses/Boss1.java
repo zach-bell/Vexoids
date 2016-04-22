@@ -78,7 +78,6 @@ public class Boss1 extends Entity{
 	float ySpeed = 2;
 	private int xTarget = MathUtils.random(0, MainGame.WIDTH - TextureManager.BOSS_1.getWidth());
 	private int yTarget = MathUtils.random(MainGame.HEIGHT - TextureManager.BOSS_1.getHeight(), MainGame.HEIGHT - 200);
-	private int firemode = 0;
 	Vector2 midWay = new Vector2(((TextureManager.BOSS_1.getWidth()/2 )- 20), (TextureManager.BOSS_1.getHeight()/2));
 	boolean sound = true;
 	

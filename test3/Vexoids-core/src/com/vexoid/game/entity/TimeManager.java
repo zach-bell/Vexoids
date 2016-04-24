@@ -189,12 +189,12 @@ public class TimeManager{
 			}
 			if(step == 10){
 				if(noEnemies()){
-				if(COUNTER%2 == 0){
+				if(COUNTER == 1){
 					SoundManager.hit4.play();
 					entityManager.doExplosion(new Vector2(MathUtils.random(0, MainGame.WIDTH),
 							MathUtils.random(0, MainGame.HEIGHT)), 250, TextureManager.BOSS_1, 20, "red");
 				}
-				if(COUNTER >= 8){
+				if(COUNTER >= 6){
 				COUNTER = 0;
 				step = 10;
 				level = 9;

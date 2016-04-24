@@ -115,7 +115,7 @@ public class MenuScreen extends Screen{
 		sb.begin();
 		for (Stars_Class s : stars)
 			s.render(sb);
-		sb.draw(title, 0, (MainGame.HEIGHT / 2));
+		sb.draw(title, ((MainGame.WIDTH/2) - (TextureManager.TITLE_IMAGE.getWidth()/2)), (MainGame.HEIGHT / 2));
 
 		displayStartFont.setColor(1.0f, 1.0f, 1.0f, 1.0f);
 		displayStartFont.draw(sb, Start, (MainGame.WIDTH / 2) / 1.2f, ((MainGame.HEIGHT / 2)));

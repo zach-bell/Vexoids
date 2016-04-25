@@ -14,12 +14,13 @@ public class TimeManager{
 	private final ScreenManager screenManager;
 	private final EntityManager entityManager;
 	private int internalCounter = 0;
-	private int COUNTER = 0;
+	private int COUNTER = 0, temp = 0, temp2 = 4;
 	private int distance = 0;
 	private int counterScore = 0;
-	private int level = 0;
+	public static int level = 0,step = 1;
+	
 	private String difficulty;
-	int step = 1,modifier = 0,basicEnemiesCount = 3,AdvancedEnemiesCount = -2,LaserEnemiesCount=-1,
+	int modifier = 0,basicEnemiesCount = 3,AdvancedEnemiesCount = -2,LaserEnemiesCount=-1,
 				secondIncrease = 30,ran = MathUtils.random(0,3);
 	
 	public TimeManager(ScreenManager screenManager, EntityManager entityManager,String difficulty) {
@@ -36,7 +37,8 @@ public class TimeManager{
 			modifier = 0;
 		}
 	}
-	private int[] oneTimeFires = {0,0,0};	//	Have 2
+	//							  0 1 2 3 4 
+	private int[] oneTimeFires = {0,0,0,0,0};	//	Have up to 4
 	private int [] bossOneTimeFires = {0,0};	// Have 1
 	public void update(){
 		internalCounter ++;
@@ -161,27 +163,35 @@ public class TimeManager{
 					for (int i = 0; i <4 + modifier; i++) {
 						addBasicEnemy();
 					}
-					if(COUNTER >= 30){
+					if(COUNTER >= 15){
 						addBasicLaserEnemy();
 					}
 					if(COUNTER >= 40){
 						addBasicLaserEnemy();
 					}
-					if(COUNTER >= 100){
-						COUNTER = 0;
+					if(COUNTER >= 50){
 						step = 9;
 					}
 				}
 			}
 			if(step == 9){
 				if(noEnemies()){
-					if(bossOneTimeFires[0] == 0){
+					if(bossOneTimeFires[1] == 0){
 						COUNTER = 0;
+						SoundManager.stopMusic();
 						SoundManager.cry1.play();
+						bossOneTimeFires[1] = 1;
+					}
+					if(COUNTER >= 3)
+					if(bossOneTimeFires[0] == 0){
+						if(distance < 10)
+							SoundManager.setMusic(SoundManager.extraMusic2, 0.5f, true);
+						else
+							SoundManager.setMusic(SoundManager.boss1Music, 0.6f, true);
 						addBoss(1);
 						bossOneTimeFires[0] = 1;
 					}
-					if(COUNTER >= 30){
+					if(COUNTER >= 20){
 					COUNTER = 0;
 					step = 10;
 					}
@@ -189,10 +199,16 @@ public class TimeManager{
 			}
 			if(step == 10){
 				if(noEnemies()){
-				if(COUNTER == 1){
+					if(oneTimeFires[3]==0){
+						SoundManager.stopMusic();
+						oneTimeFires[3] = 1;
+					}
+					temp ++;
+				if(temp >= temp2 && COUNTER < 3){
 					SoundManager.hit4.play();
 					entityManager.doExplosion(new Vector2(MathUtils.random(0, MainGame.WIDTH),
-							MathUtils.random(0, MainGame.HEIGHT)), 250, TextureManager.BOSS_1, 20, "red");
+							MathUtils.random(0, MainGame.HEIGHT)), 150, TextureManager.BOSS_1, 20, "red");
+					temp = 0;
 				}
 				if(COUNTER >= 6){
 				COUNTER = 0;
@@ -204,6 +220,16 @@ public class TimeManager{
 		}
 		if(level == 9)
 		if(noEnemies()){
+			if(oneTimeFires[4]==0){
+				if(distance <= 25)
+					SoundManager.setMusic(SoundManager.extraMusic, 0.8f, true);
+				else
+					if(distance <= 30)
+						SoundManager.setMusic(SoundManager.extraMusic3, 0.6f, true);
+					else
+						SoundManager.setMusic(SoundManager.gameMusic, 0.8f, true);
+				oneTimeFires[4] = 1;
+			}
 			ran = MathUtils.random(0,3);
 			if (COUNTER >= secondIncrease){
 				basicEnemiesCount += 1;

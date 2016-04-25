@@ -173,7 +173,7 @@ public class AdvancedEnemy extends Entity {
 					entityManager.addEntity(new bullet1(pos.cpy().add(15, 30), spread, speed));
 					entityManager.addEntity(new bullet1(pos.cpy().add(15, 30), spread, speed));
 					SoundManager.shot1.play(0.4f);
-					if (count >= firePower/2) {
+					if (count >= firePower) {
 						count = 0;
 						lastFire = System.currentTimeMillis()+1000;
 					}

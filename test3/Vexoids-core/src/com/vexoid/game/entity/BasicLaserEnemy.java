@@ -53,6 +53,7 @@ public class BasicLaserEnemy extends Entity {
 		return healthPercent;
 	}
 	public boolean entityDied(){
+		SoundManager.stopASound(SoundManager.laserShot1);
 		SoundManager.laserShot1.stop();
 		return entityDied;
 	}

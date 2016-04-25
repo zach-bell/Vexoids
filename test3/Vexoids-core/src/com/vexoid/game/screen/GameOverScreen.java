@@ -11,6 +11,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.vexoid.game.MainGame;
 import com.vexoid.game.SoundManager;
 import com.vexoid.game.camera.OrthoCamera;
+import com.vexoid.game.entity.TimeManager;
 
 public class GameOverScreen extends Screen{
 	private OrthoCamera camera;
@@ -56,11 +57,17 @@ public class GameOverScreen extends Screen{
 			}
 		});
 	}
-		public void startButtonClicked(){
-			screenManager.setScreen(new MenuScreen(), gameDifficulty);
-		}
+	public void startButtonClicked(){
+		screenManager.setScreen(new MenuScreen(), gameDifficulty);
+	}
+	private int[] oneTime = {0};
 	public void update() {
 		camera.update();
+		if(oneTime[0] == 0){
+			TimeManager.level = 0;
+			TimeManager.step = 1;
+			oneTime[0] = 1;
+		}
 	}
 
 	public void render(SpriteBatch sb) {

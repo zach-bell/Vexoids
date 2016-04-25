@@ -10,7 +10,7 @@ public class TextureManager {
 	public static Texture PLAYER = new Texture(Gdx.files.internal("assets/image/ship2.png"));
 	
 	public static Texture BASIC_ENEMY = new Texture(Gdx.files.internal("assets/image/jellies2.png"));
-	public static Texture ADVANCED_ENEMY = new Texture(Gdx.files.internal("assets/image/jellies3.png"));
+	public static Texture ADVANCED_ENEMY = new Texture(Gdx.files.internal("assets/image/jellies4.png"));
 	public static Texture LASER_ENEMY = new Texture(Gdx.files.internal("assets/image/enemyship_2.png"));
 
 	public static Texture BOSS_1 = new Texture(Gdx.files.internal("assets/image/jelly boss blue.png"));

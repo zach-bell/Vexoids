@@ -473,7 +473,7 @@ part of it
 			//	Yellow Player Bullet
 				for (Yellow_Bullet2 m : getPlayerYellowBullets()) {
 					if (e.getBounds().overlaps(m.getBounds())) {
-						e.decreaseHealth(1.25f * healthMultiplier);;
+						e.decreaseHealth(0.75f * healthMultiplier);;
 						entities.removeValue(m, false);
 						doBlastEffect(m.pos.cpy(),10,m.texture, "yellow");
 						SoundManager.hit1.play(0.6f);

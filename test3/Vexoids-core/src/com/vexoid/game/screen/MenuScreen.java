@@ -12,6 +12,7 @@ import com.vexoid.game.MainGame;
 import com.vexoid.game.SoundManager;
 import com.vexoid.game.TextureManager;
 import com.vexoid.game.camera.OrthoCamera;
+import com.vexoid.game.entity.TimeManager;
 import com.vexoid.game.entity.stars.Stars_Class;
 
 public class MenuScreen extends Screen{
@@ -45,6 +46,7 @@ public class MenuScreen extends Screen{
 	private int limit=101,starLimit=limit,starToggle=0;
 	private final Array<Stars_Class> stars = new Array<Stars_Class>();
 	
+	private int[] oneTime = {0};
 	int Switch = 0, Toggle = 1, Switch2 = 0, Toggle2 = 1;
 	
 	private void addStars(Stars_Class entity) {
@@ -76,31 +78,44 @@ public class MenuScreen extends Screen{
 		for (Stars_Class s : stars)
 			s.update();
 		
+// hidden switches
+		if(Gdx.input.isKeyPressed(Keys.NUM_1)){
+			if(Gdx.input.isKeyPressed(Keys.NUM_2)){
+				if(Gdx.input.isKeyPressed(Keys.NUM_3)){
+					if(Gdx.input.isKeyPressed(Keys.NUM_4) && oneTime[0] == 0){
+						TimeManager.level = 1;
+						TimeManager.step = 9;
+						SoundManager.sound2.play(0.7f);
+						oneTime[0] = 1;
+					}
+				}
+			}
+		}
 //	Difficulty Switch
 		if ((Gdx.input.isKeyPressed(Keys.RIGHT)&& Switch2 != 1 && Toggle2 == 1) ||
-				(Gdx.input.isKeyPressed(Keys.LEFT)&& Switch2 != 1 && Toggle2 == 1)){
+				(Gdx.input.isKeyPressed(Keys.LEFT)&& Switch2 != 1 && Toggle2 == 3)){
 			gameDifficulty = "hard";
 			SoundManager.sound1.play(1);
 			if(Gdx.input.isKeyPressed(Keys.LEFT))
-				Toggle2 = 3;
+				Toggle2 = 2;
 			else
 			Toggle2 = 2;
 		} else
 		if ((Gdx.input.isKeyPressed(Keys.RIGHT)&& Switch2 != 1 && Toggle2 == 2) ||
-				(Gdx.input.isKeyPressed(Keys.LEFT)&& Switch2 != 1 && Toggle2 == 2)){
+				(Gdx.input.isKeyPressed(Keys.LEFT)&& Switch2 != 1 && Toggle2 == 1)){
 			gameDifficulty = "easy";
 			SoundManager.sound1.play(1);
 			if(Gdx.input.isKeyPressed(Keys.LEFT))
-				Toggle2 = 1;
+				Toggle2 = 3;
 			else
 			Toggle2 = 3;
 		} else
 		if ((Gdx.input.isKeyPressed(Keys.RIGHT)&& Switch2 != 1 && Toggle2 == 3) ||
-				(Gdx.input.isKeyPressed(Keys.LEFT)&& Switch2 != 1 && Toggle2 == 3)){
+				(Gdx.input.isKeyPressed(Keys.LEFT)&& Switch2 != 1 && Toggle2 == 2)){
 			gameDifficulty = "medium";
 			SoundManager.sound1.play(1);
 			if(Gdx.input.isKeyPressed(Keys.LEFT))
-				Toggle2 = 2;
+				Toggle2 = 1;
 			else
 			Toggle2 = 1;
 		}			

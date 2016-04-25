@@ -42,16 +42,48 @@ public class Boss1 extends Entity{
 			firePower = 8;
 			additionalHealth = 0;
 		}
-		healthPercent = 1500 + additionalHealth;
+		healthPercent = 1750 + additionalHealth;
 	}
 
 	//health stuff
 	float additionalHealth = 0;
-	float healthPercent = 1500 +(additionalHealth);
+	float healthPercent = 1750 +(additionalHealth);
 	boolean entityDied = false;
+	private int[] oneTime = {0,0,0,0,0,0};
 	public void health(){
-	if(healthPercent >= 1500.0 +(additionalHealth))
-		healthPercent = 1500.0f + (additionalHealth);
+		if(healthPercent >= 1750.0 +(additionalHealth))
+			healthPercent = 1750.0f + (additionalHealth);
+		if(healthPercent < 1500 && oneTime[0] == 0){
+			cry();
+			oneTime[0] = 1;
+		}
+		if(healthPercent < 1250 && oneTime[1] == 0){
+			cry();
+			oneTime[1] = 1;
+		}
+		if(healthPercent < 1000 && oneTime[2] == 0){
+			cry();
+			oneTime[2] = 1;
+		}
+		if(healthPercent < 750 && oneTime[3] == 0){
+			cry();
+			oneTime[3] = 1;
+		}
+		if(healthPercent < 500 && oneTime[4] == 0){
+			cry();
+			oneTime[4] = 1;
+		}
+		if(healthPercent < 250 && oneTime[5] == 0){
+			cry();
+			oneTime[5] = 1;
+		}
+	}
+	public void cry(){
+		int ran = MathUtils.random(1,2);
+		if(ran == 1)
+			SoundManager.cry2.play();
+		if(ran == 2)
+			SoundManager.cry3.play();
 	}
 	public void increaseHealth(float ammount){
 		healthPercent += ammount;

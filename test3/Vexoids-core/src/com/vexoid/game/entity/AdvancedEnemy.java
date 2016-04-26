@@ -17,13 +17,20 @@ public class AdvancedEnemy extends Entity {
 	public int shotDelay;
 	private int ranLimit;
 	private int ran;
-	float initSpeed = (gameDifficulty == "hard"? 0.75f : (gameDifficulty== "medium"? 0.3f : (gameDifficulty== "easy"? 0.25f : 0.25f)));
+	float initSpeed = (gameDifficulty == "vexoid"? 1 :(gameDifficulty == "hard"? 0.75f :
+					(gameDifficulty== "medium"? 0.3f : (gameDifficulty== "easy"? 0.25f : 0.25f))));
 
 	public AdvancedEnemy(Vector2 pos, Vector2 direction, EntityManager entityManager, String difficulty) {
 		super(TextureManager.ADVANCED_ENEMY, pos, direction);
 		this.entityManager = entityManager;
 		gameDifficulty = difficulty;
-		
+
+		if (gameDifficulty == "vexoid") {
+			firePower = MathUtils.random(8,14);
+			timeDelay = 1000;
+			shotDelay = MathUtils.random(0,10);
+			ranLimit = 3;
+		}
 		if (gameDifficulty == "hard") {
 			firePower = MathUtils.random(4,7);
 			timeDelay = 1500;
@@ -83,7 +90,7 @@ public class AdvancedEnemy extends Entity {
 		if (x){ran = MathUtils.random(1,ranLimit);}
 		x=false;
 	//Movement controlling what a bitch
-		if (gameDifficulty == "hard"){
+		if (gameDifficulty == "hard" || gameDifficulty == "vexoid"){
 		// X movement
 			if (pos.x > xTarget+5 || pos.x < xTarget-5){
 				if (pos.x > xTarget) {

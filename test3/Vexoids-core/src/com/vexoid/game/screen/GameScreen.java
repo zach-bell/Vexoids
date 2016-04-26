@@ -128,21 +128,6 @@ public class GameScreen extends Screen{
 	public static boolean isGameOver(){
 		return entityManager.isGameOver();
 	}
-	public static int getEnemies(){
-		return entityManager.getEntities();
-	}
-	public static void addEnemies(int i){
-		if(i == 1)
-		entityManager.addBasicEnemy();
-		if(i == 2)
-		entityManager.addAdvancedEnemy();
-		if(i == 3)
-		entityManager.addBasicLaserEnemy();	
-	}
-	public static void addBoss(int i){
-		if(i == 1)
-		entityManager.addBoss1();
-	}
 	public static int getDistance(){
 		return timeManager.getDistance();
 	}

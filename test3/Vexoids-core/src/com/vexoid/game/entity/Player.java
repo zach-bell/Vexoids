@@ -22,13 +22,17 @@ public class Player extends Entity{
 	private int shootDelay = 20;
 	private float spread = 0.5f;
 	static String shootingMode = "narrow", bulletMode = "light";
-	String difficulty;
+	private String difficulty;
+	private boolean allowedRegen = true;
 		
-	public Player(Vector2 pos, Vector2 direction, EntityManager entityManager, OrthoCamera camera) {
+	public Player(Vector2 pos, Vector2 direction, EntityManager entityManager, OrthoCamera camera, String difficulty) {
 		super(TextureManager.PLAYER, pos, direction);
 		this.entityManager = entityManager;
 		this.camera = camera;
+		this.difficulty = difficulty;
 		PositionX = pos.x;
+		if(this.difficulty == "vexoid")
+			allowedRegen = false;
 	}
 	
 // Health stuff
@@ -39,7 +43,7 @@ public class Player extends Entity{
 		clock ++;
 		if(healthPercent >= 100.000)
 			healthPercent=100.0f;
-		if(clock > 750){
+		if(clock > 750 && allowedRegen){
 			for(int i=(int) healthPercent; i< 100; i++){
 				healthPercent += 0.01f;
 			}

@@ -248,20 +248,21 @@ public class TimeManager{
 		}
 	}
 	public void addBasicEnemy(){
-		GameScreen.addEnemies(1);
+		entityManager.addBasicEnemy();
 	}
 	public void addAdvancedEnemy(){
-		GameScreen.addEnemies(2);
+		entityManager.addAdvancedEnemy();
 	}
 	public void addBasicLaserEnemy(){
-		GameScreen.addEnemies(3);
+		entityManager.addBasicLaserEnemy();
 	}
 	public void addBoss(int bossNumber){
-		GameScreen.addBoss(bossNumber);
+		if(bossNumber == 1)
+			entityManager.addBoss1();
 	}
 	
 	public boolean noEnemies(){
-		if(GameScreen.getEnemies() <= 0)
+		if(entityManager.getEntities() <= 0)
 			return true;
 		else
 			return false;

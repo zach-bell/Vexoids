@@ -43,25 +43,26 @@ public class EntityManager {
 	
 	public EntityManager(OrthoCamera camera, ScreenManager screenManager, String difficulty) {
 		this.screenManager = screenManager;
-		player = new Player(new Vector2(MainGame.WIDTH/2-TextureManager.PLAYER.getWidth()/2, 15),
-				new Vector2(0, 0), this, camera);
-		
 		gameDifficulty = difficulty;
-		
+		player = new Player(new Vector2(MainGame.WIDTH/2-TextureManager.PLAYER.getWidth()/2, 15),
+				new Vector2(0, 0), this, camera, gameDifficulty);
+
+		if (difficulty == "vexoid"){
+			damageMultiplier = 1.8f;
+			healthMultiplier = 0.6f;
+			lives = 8;
+		}
 		if (difficulty == "hard"){
-			BasicLaserEnemy.basicLaserEnemyHealth = 25;
 			damageMultiplier = 1.5f;
 			healthMultiplier = 0.8f;
 			lives = 5;
 		}
 		if (difficulty == "medium"){
-			BasicLaserEnemy.basicLaserEnemyHealth = 20;
 			damageMultiplier = 1.25f;
 			healthMultiplier = 1;
 			lives = 4;
 		}
 		if (difficulty == "easy"){
-			BasicLaserEnemy.basicLaserEnemyHealth = 15;
 			damageMultiplier = 1;
 			healthMultiplier = 1.2f;
 			lives = 3;
@@ -108,7 +109,7 @@ part of it
  *********************/
 		
 		if(player.tookLives){
-			clearAllEntities();
+			clearAllEntities(true);
 			clearedEntities = true;
 			player.tookLives = false;
 		} else	clearedEntities = false;
@@ -220,16 +221,18 @@ part of it
 				Position.y+(texture.getWidth()/2)+MathUtils.random(-5,5)), new Vector2(0, 0), size, color));
 		}
 	}
-	public void clearAllEntities(){
+	public void clearAllEntities(boolean PlayerToo){
 		entities.removeAll(getBasicEnemies(), false);
 		entities.removeAll(getAdvancedEnemies(), false);
 		entities.removeAll(getBasicLaserEnemies(), false);
 		entities.removeAll(getEnemyPurpleBullets(), false);
 		entities.removeAll(getLaserBullets(), false);
 		entities.removeAll(getPlayerBlueBullets(), false);
-		SoundManager.liveLost.play(0.6f);
-		doExplosion(player.pos, 300, TextureManager.PLAYER, 50, "red");
-		player.pos.set(new Vector2(((MainGame.WIDTH /2) - (TextureManager.PLAYER.getWidth() /2)), 15));
+		if(PlayerToo){
+			SoundManager.liveLost.play(0.6f);
+			doExplosion(player.pos, 300, TextureManager.PLAYER, 50, "red");
+			player.pos.set(new Vector2(((MainGame.WIDTH /2) - (TextureManager.PLAYER.getWidth() /2)), 15));
+		}
 		System.out.println("Entities Cleared");
 	}
 	
@@ -641,7 +644,7 @@ part of it
 		entities.removeAll(getAdvancedEnemies(), false);
 		isGameOver = condition;
 	}
-	public static Vector2 getPlayerPos(){
+	public Vector2 getPlayerPos(){
 		return player.pos;
 	}
 	public static void movePlayer(int posX, int posY, boolean moveAllowed) {

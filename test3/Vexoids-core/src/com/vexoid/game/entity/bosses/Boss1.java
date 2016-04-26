@@ -27,6 +27,12 @@ public class Boss1 extends Entity{
 		this.entityManager = entityManager;
 		this.difficulty = difficulty;
 		stageDelay = MathUtils.random(450,600);
+		if (this.difficulty == "vexoid") {
+			timeDelay = 50;
+			firePower = 48;
+			additionalHealth = 1500;
+			cry();
+		}
 		if (this.difficulty == "hard") {
 			timeDelay = 250;
 			firePower = 24;
@@ -90,8 +96,10 @@ public class Boss1 extends Entity{
 	}
 	public void decreaseHealth(float ammount){
 		healthPercent -= ammount;
-		if(healthPercent <= 0)
+		if(healthPercent <= 0){
+			entityManager.clearAllEntities(false);
 			entityDied = true;
+		}
 	}
 	public float getHealth(){
 		return healthPercent;
@@ -146,10 +154,18 @@ public class Boss1 extends Entity{
 		if (pos.y < MainGame.HEIGHT - (TextureManager.BOSS_1.getHeight()/2)){
 			if (System.currentTimeMillis() - lastFire >= MathUtils.random(timeDelay, timeDelay+1500)) {
 				shooting ++;
+				
+				//	slow shooting
 				if(shooting >= shotDelay+2 && ran <= 1) {
 					count ++;
-					spread = 4;
-					speed = MathUtils.random(2.2f, 2.8f);
+					if(difficulty == "vexoid")
+						spread = 3;
+					else
+						spread = 4;
+					if(difficulty == "vexoid")
+						speed = MathUtils.random(1.2f, 2);
+					else
+						speed = MathUtils.random(2.2f, 2.8f);
 					entityManager.addEntity(new bullet1(pos.cpy().add(midWay), spread, speed));
 					SoundManager.shot1.play(0.4f);
 					if (count >= firePower*2) {
@@ -159,37 +175,65 @@ public class Boss1 extends Entity{
 					}
 					shooting = 0;
 				}
-					if(shooting >= shotDelay && ran <= 3 && ran >= 2) {
-						count ++;
-						spread = 5;
-						speed = 7;
-						entityManager.addEntity(new bullet1(pos.cpy().add(midWay), spread, speed));
-						SoundManager.shot1.play(0.4f);
-						if (count >= firePower) {
-							count = 0;
-							lastFire = System.currentTimeMillis();
-							ran = MathUtils.random(0,4);
-						}
-						shooting = 0;
+				//	quick shooting
+				if(shooting >= shotDelay && ran <= 3 && ran >= 2 && !(difficulty == "vexoid")) {
+					count ++;
+					spread = 5;
+					speed = 7;
+					entityManager.addEntity(new bullet1(pos.cpy().add(midWay), spread, speed));
+					SoundManager.shot1.play(0.4f);
+					if (count >= firePower) {
+						count = 0;
+						lastFire = System.currentTimeMillis();
+						ran = MathUtils.random(0,4);
 					}
-					if(shooting >= shotDelay+8 && ran == 4) {
-						count ++;
-						spread = 7;
-						speed = 5;
-						entityManager.addEntity(new bullet1(pos.cpy().add(midWay), spread, speed));
-						entityManager.addEntity(new bullet1(pos.cpy().add(midWay), spread, speed));
-						entityManager.addEntity(new bullet1(pos.cpy().add(midWay), spread, speed));
-						entityManager.addEntity(new bullet1(pos.cpy().add(midWay), spread, speed));
-						entityManager.addEntity(new bullet1(pos.cpy().add(midWay), spread, speed));
-						SoundManager.shot1.play(0.4f);
-						if (count >= firePower) {
-							count = 0;
-							lastFire = System.currentTimeMillis()+1000;
-							ran = MathUtils.random(0,4);
-						}
-						shooting = 0;
-					}
+					shooting = 0;
 				}
+				//	shotgun
+				if(shooting >= shotDelay+8 && ran == 4) {
+					count ++;
+					spread = 7;
+					speed = 5;
+					entityManager.addEntity(new bullet1(pos.cpy().add(midWay), spread, speed));
+					entityManager.addEntity(new bullet1(pos.cpy().add(midWay), spread, speed));
+					entityManager.addEntity(new bullet1(pos.cpy().add(midWay), spread, speed));
+					entityManager.addEntity(new bullet1(pos.cpy().add(midWay), spread, speed));
+					entityManager.addEntity(new bullet1(pos.cpy().add(midWay), spread, speed));
+					SoundManager.shot1.play(0.4f);
+					if (count >= firePower) {
+						count = 0;
+						lastFire = System.currentTimeMillis()+1000;
+						ran = MathUtils.random(0,4);
+					}
+					shooting = 0;
+				}
+				//	new bullet
+				if(shooting >= shotDelay+2 && ran == 2 && difficulty == "vexoid") {
+					count ++;
+					entityManager.addBasicEnemy();
+					SoundManager.shot1.play(0.4f);
+					if (count >= 1) {
+						count = 0;
+						lastFire = System.currentTimeMillis();
+						ran = MathUtils.random(0,4);
+					}
+					shooting = 0;
+				}
+				if(shooting >= shotDelay && ran == 3 && difficulty == "vexoid") {
+					count ++;
+					spread = 5;
+					speed = 7;
+					entityManager.addEntity(new bullet1(pos.cpy().add(midWay), spread, speed));
+					SoundManager.shot1.play(0.4f);
+					if (count >= firePower) {
+						count = 0;
+						lastFire = System.currentTimeMillis();
+						ran = MathUtils.random(0,4);
+					}
+					shooting = 0;
+				}
+				//	New bullets go past here
+			}
 		}
 	}
 }

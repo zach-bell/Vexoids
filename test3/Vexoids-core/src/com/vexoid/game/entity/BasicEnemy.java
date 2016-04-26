@@ -15,13 +15,20 @@ public class BasicEnemy extends Entity {
 	public int timeDelay, shotDelay;
 	private int ranLimit, ran, firePower = 4;
 	
-	float initSpeed = (gameDifficulty == "hard"? 0.75f : (gameDifficulty== "medium"? 0.3f : (gameDifficulty== "easy"? 0.25f : 0.25f)));
+	float initSpeed = gameDifficulty == "vexoid"? 1 : (gameDifficulty == "hard"? 0.75f :
+				(gameDifficulty== "medium"? 0.3f : (gameDifficulty== "easy"? 0.25f : 0.25f)));
 	
 	public BasicEnemy(Vector2 pos, Vector2 direction, EntityManager entityManager, String difficulty) {
 		super(TextureManager.BASIC_ENEMY, pos, direction);
 		this.entityManager = entityManager;
 		gameDifficulty = difficulty;
-				
+
+		if (gameDifficulty == "vexoid") {
+			firePower = MathUtils.random(8,14);
+			timeDelay = 750;
+			shotDelay = MathUtils.random(0,10);
+			ranLimit = 2;
+		}
 		if (gameDifficulty == "hard") {
 			firePower = MathUtils.random(4,7);
 			timeDelay = 1500;
@@ -81,7 +88,7 @@ public class BasicEnemy extends Entity {
 		x=false;
 
 	//Movement controlling what a bitch
-		if (gameDifficulty == "hard"){
+		if (gameDifficulty == "hard" || gameDifficulty == "vexoid"){
 		// X movement
 			if (pos.x > xTarget+5 || pos.x < xTarget-5){
 				if (pos.x > xTarget) {

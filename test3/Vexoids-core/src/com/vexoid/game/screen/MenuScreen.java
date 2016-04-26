@@ -46,7 +46,8 @@ public class MenuScreen extends Screen{
 	private int limit=101,starLimit=limit,starToggle=0;
 	private final Array<Stars_Class> stars = new Array<Stars_Class>();
 	
-	private int[] oneTime = {0};
+	private boolean cheatActive = false;
+	private int[] oneTime = {0,0};
 	int Switch = 0, Toggle = 1, Switch2 = 0, Toggle2 = 1;
 	
 	private void addStars(Stars_Class entity) {
@@ -91,7 +92,64 @@ public class MenuScreen extends Screen{
 				}
 			}
 		}
+		if(Gdx.input.isKeyPressed(Keys.NUM_1)){
+			if(Gdx.input.isKeyPressed(Keys.NUM_2)){
+				if(Gdx.input.isKeyPressed(Keys.NUM_4)){
+					if(Gdx.input.isKeyPressed(Keys.NUM_5) && oneTime[1] == 0){
+						SoundManager.sound2.play(0.7f);
+						cheatActive = true;
+						oneTime[1] = 1;
+					}
+				}
+			}
+		}
 //	Difficulty Switch
+		if(cheatActive){
+
+//			Difficulty Switch
+			if ((Gdx.input.isKeyPressed(Keys.RIGHT)&& Switch2 != 1 && Toggle2 == 4) ||
+					(Gdx.input.isKeyPressed(Keys.LEFT)&& Switch2 != 1 && Toggle2 == 3)){
+				gameDifficulty = "vexoid";
+				SoundManager.sound1.play(1);
+				if(Gdx.input.isKeyPressed(Keys.LEFT))
+					Toggle2 = 3;
+				else
+					Toggle2 = 2;
+			} else
+			if ((Gdx.input.isKeyPressed(Keys.RIGHT)&& Switch2 != 1 && Toggle2 == 1) ||
+					(Gdx.input.isKeyPressed(Keys.LEFT)&& Switch2 != 1 && Toggle2 == 3)){
+				gameDifficulty = "hard";
+				SoundManager.sound1.play(1);
+				if(Gdx.input.isKeyPressed(Keys.LEFT))
+					Toggle2 = 3;
+				else
+					Toggle2 = 4;
+			} else
+			if ((Gdx.input.isKeyPressed(Keys.RIGHT)&& Switch2 != 1 && Toggle2 == 2) ||
+					(Gdx.input.isKeyPressed(Keys.LEFT)&& Switch2 != 1 && Toggle2 == 4)){
+				gameDifficulty = "easy";
+				SoundManager.sound1.play(1);
+				if(Gdx.input.isKeyPressed(Keys.LEFT))
+					Toggle2 = 4;
+				else
+					Toggle2 = 3;
+			} else
+			if ((Gdx.input.isKeyPressed(Keys.RIGHT)&& Switch2 != 1 && Toggle2 == 3) ||
+					(Gdx.input.isKeyPressed(Keys.LEFT)&& Switch2 != 1 && Toggle2 == 2)){
+				gameDifficulty = "medium";
+				SoundManager.sound1.play(1);
+				if(Gdx.input.isKeyPressed(Keys.LEFT))
+					Toggle2 = 4;
+				else
+					Toggle2 = 1;
+			}			
+			if (Gdx.input.isKeyPressed(Keys.RIGHT) || Gdx.input.isKeyPressed(Keys.LEFT))
+				Switch2 = 1;
+			else
+				Switch2 = 0;
+		} else {
+			
+		// without cheat
 		if ((Gdx.input.isKeyPressed(Keys.RIGHT)&& Switch2 != 1 && Toggle2 == 1) ||
 				(Gdx.input.isKeyPressed(Keys.LEFT)&& Switch2 != 1 && Toggle2 == 3)){
 			gameDifficulty = "hard";
@@ -99,7 +157,7 @@ public class MenuScreen extends Screen{
 			if(Gdx.input.isKeyPressed(Keys.LEFT))
 				Toggle2 = 2;
 			else
-			Toggle2 = 2;
+				Toggle2 = 2;
 		} else
 		if ((Gdx.input.isKeyPressed(Keys.RIGHT)&& Switch2 != 1 && Toggle2 == 2) ||
 				(Gdx.input.isKeyPressed(Keys.LEFT)&& Switch2 != 1 && Toggle2 == 1)){
@@ -108,7 +166,7 @@ public class MenuScreen extends Screen{
 			if(Gdx.input.isKeyPressed(Keys.LEFT))
 				Toggle2 = 3;
 			else
-			Toggle2 = 3;
+				Toggle2 = 3;
 		} else
 		if ((Gdx.input.isKeyPressed(Keys.RIGHT)&& Switch2 != 1 && Toggle2 == 3) ||
 				(Gdx.input.isKeyPressed(Keys.LEFT)&& Switch2 != 1 && Toggle2 == 2)){
@@ -117,12 +175,13 @@ public class MenuScreen extends Screen{
 			if(Gdx.input.isKeyPressed(Keys.LEFT))
 				Toggle2 = 1;
 			else
-			Toggle2 = 1;
+				Toggle2 = 1;
 		}			
 		if (Gdx.input.isKeyPressed(Keys.RIGHT) || Gdx.input.isKeyPressed(Keys.LEFT))
 			Switch2 = 1;
 		else
 			Switch2 = 0;
+		}
 	}
 
 	public void render(SpriteBatch sb) {

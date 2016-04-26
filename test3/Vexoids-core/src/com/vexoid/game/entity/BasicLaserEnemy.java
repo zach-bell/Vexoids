@@ -13,7 +13,6 @@ import com.vexoid.game.entity.effects.Effect3_LaserWarning;
 public class BasicLaserEnemy extends Entity {
 	String gameDifficulty;
 	int timeDelay=0,textureVariation = 2,textureVariation2 = 4,stageDelay = 600;
-	public static int basicLaserEnemyHealth;
 	BlastEffect blast;
 
 	public BasicLaserEnemy(Vector2 pos, Vector2 direction, EntityManager entityManager, String difficulty) {
@@ -21,6 +20,9 @@ public class BasicLaserEnemy extends Entity {
 		this.entityManager = entityManager;
 		gameDifficulty = difficulty;
 		stageDelay = MathUtils.random(450,600);
+		if (gameDifficulty == "vexoid") {
+			timeDelay = 150;
+		}
 		if (gameDifficulty == "hard") {
 			timeDelay = 300;
 		}

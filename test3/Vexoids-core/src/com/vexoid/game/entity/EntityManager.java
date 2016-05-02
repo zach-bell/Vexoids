@@ -74,7 +74,7 @@ public class EntityManager {
 	int starcount = 0;
 	
 	static boolean clearedEntities = false;
-	private int limit=101,starLimit=limit,starToggle=0;
+	private int limit=104,starLimit=limit,starToggle=0;
 	
 	
 	public void update() {
@@ -496,10 +496,10 @@ part of it
 				}
 			}
 	}
-	public static String getPlayerShootingMode(){
+	public String getPlayerShootingMode(){
 		return player.shootingMode();
 	}
-	public static int getPlayerLives(){
+	public int getPlayerLives(){
 		return lives;
 	}
 	
@@ -606,10 +606,10 @@ part of it
 	public int getEntities(){
 		return getBasicLaserEnemies().size+getBasicEnemies().size+getAdvancedEnemies().size + getBoss1().size;
 	}
-	public static float checkPlayerHealth(){
+	public float checkPlayerHealth(){
 		return (int) player.getHealth();
 	}
-	public static int enemyKillScore(){
+	public int enemyKillScore(){
 		return enemiesKilled;
 	}
 	public int nullEnemyKillScore(){
@@ -618,7 +618,7 @@ part of it
 	public boolean noEnemies() {
 		return (getBasicEnemies().size+getBasicLaserEnemies().size+getAdvancedEnemies().size <= 0);
 	}
-	public static String getPlayerBulletMode() {
+	public String getPlayerBulletMode() {
 		return player.bulletMode();
 	}
 	public void listenForKeys(){

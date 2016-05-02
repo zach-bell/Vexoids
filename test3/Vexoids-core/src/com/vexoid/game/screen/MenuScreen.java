@@ -3,7 +3,6 @@ package com.vexoid.game.screen;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
@@ -18,14 +17,11 @@ import com.vexoid.game.entity.stars.Stars_Class;
 public class MenuScreen extends Screen{
 
 	private OrthoCamera camera;
-	String gameDifficulty, Start = "Press Enter";
-	String changeGameDifficulty = "Use Left or Right arrow Key\n to change difficulty";
-	
-	BitmapFont displayGameDifficultyFont;
-	BitmapFont displayChangeGameDifficultyFont;
-	BitmapFont displayStartFont;
+	String gameDifficulty;
 	
 	Texture title = TextureManager.TITLE_IMAGE;
+	Texture menuTitle = TextureManager.MENU_IMAGE;
+	Texture difficultyImage = TextureManager.DIFFICULTY_MEDIUM;
 	
 	public void create(ScreenManager screenManager, String difficulty) {
 		gameDifficulty = difficulty;
@@ -33,17 +29,13 @@ public class MenuScreen extends Screen{
 		camera.resize();
 		
 		SoundManager.setMusic(SoundManager.menuMusic, 0.8f, true);
-	
-		displayGameDifficultyFont = new BitmapFont();
-		displayChangeGameDifficultyFont = new BitmapFont();
-		displayStartFont = new BitmapFont();
 	}
 
 	int secondIncrease = 30;
 	int starcount = 0;
 
 	static boolean clearedEntities = false;
-	private int limit=101,starLimit=limit,starToggle=0;
+	private int limit=104,starLimit=limit,starToggle=0;
 	private final Array<Stars_Class> stars = new Array<Stars_Class>();
 	
 	private boolean cheatActive = false;
@@ -110,6 +102,7 @@ public class MenuScreen extends Screen{
 			if ((Gdx.input.isKeyPressed(Keys.RIGHT)&& Switch2 != 1 && Toggle2 == 4) ||
 					(Gdx.input.isKeyPressed(Keys.LEFT)&& Switch2 != 1 && Toggle2 == 3)){
 				gameDifficulty = "vexoid";
+				difficultyImage = TextureManager.DIFFICULTY_VEXOID;
 				SoundManager.sound1.play(1);
 				if(Gdx.input.isKeyPressed(Keys.LEFT))
 					Toggle2 = 3;
@@ -119,6 +112,7 @@ public class MenuScreen extends Screen{
 			if ((Gdx.input.isKeyPressed(Keys.RIGHT)&& Switch2 != 1 && Toggle2 == 1) ||
 					(Gdx.input.isKeyPressed(Keys.LEFT)&& Switch2 != 1 && Toggle2 == 3)){
 				gameDifficulty = "hard";
+				difficultyImage = TextureManager.DIFFICULTY_HARD;
 				SoundManager.sound1.play(1);
 				if(Gdx.input.isKeyPressed(Keys.LEFT))
 					Toggle2 = 3;
@@ -128,6 +122,7 @@ public class MenuScreen extends Screen{
 			if ((Gdx.input.isKeyPressed(Keys.RIGHT)&& Switch2 != 1 && Toggle2 == 2) ||
 					(Gdx.input.isKeyPressed(Keys.LEFT)&& Switch2 != 1 && Toggle2 == 4)){
 				gameDifficulty = "easy";
+				difficultyImage = TextureManager.DIFFICULTY_EASY;
 				SoundManager.sound1.play(1);
 				if(Gdx.input.isKeyPressed(Keys.LEFT))
 					Toggle2 = 4;
@@ -137,6 +132,7 @@ public class MenuScreen extends Screen{
 			if ((Gdx.input.isKeyPressed(Keys.RIGHT)&& Switch2 != 1 && Toggle2 == 3) ||
 					(Gdx.input.isKeyPressed(Keys.LEFT)&& Switch2 != 1 && Toggle2 == 2)){
 				gameDifficulty = "medium";
+				difficultyImage = TextureManager.DIFFICULTY_MEDIUM;
 				SoundManager.sound1.play(1);
 				if(Gdx.input.isKeyPressed(Keys.LEFT))
 					Toggle2 = 4;
@@ -147,12 +143,14 @@ public class MenuScreen extends Screen{
 				Switch2 = 1;
 			else
 				Switch2 = 0;
-		} else {
+			
+		} else {	//	This is the else for checking if the cheat active or not
 			
 		// without cheat
 		if ((Gdx.input.isKeyPressed(Keys.RIGHT)&& Switch2 != 1 && Toggle2 == 1) ||
 				(Gdx.input.isKeyPressed(Keys.LEFT)&& Switch2 != 1 && Toggle2 == 3)){
 			gameDifficulty = "hard";
+			difficultyImage = TextureManager.DIFFICULTY_HARD;
 			SoundManager.sound1.play(1);
 			if(Gdx.input.isKeyPressed(Keys.LEFT))
 				Toggle2 = 2;
@@ -162,6 +160,7 @@ public class MenuScreen extends Screen{
 		if ((Gdx.input.isKeyPressed(Keys.RIGHT)&& Switch2 != 1 && Toggle2 == 2) ||
 				(Gdx.input.isKeyPressed(Keys.LEFT)&& Switch2 != 1 && Toggle2 == 1)){
 			gameDifficulty = "easy";
+			difficultyImage = TextureManager.DIFFICULTY_EASY;
 			SoundManager.sound1.play(1);
 			if(Gdx.input.isKeyPressed(Keys.LEFT))
 				Toggle2 = 3;
@@ -171,6 +170,7 @@ public class MenuScreen extends Screen{
 		if ((Gdx.input.isKeyPressed(Keys.RIGHT)&& Switch2 != 1 && Toggle2 == 3) ||
 				(Gdx.input.isKeyPressed(Keys.LEFT)&& Switch2 != 1 && Toggle2 == 2)){
 			gameDifficulty = "medium";
+			difficultyImage = TextureManager.DIFFICULTY_MEDIUM;
 			SoundManager.sound1.play(1);
 			if(Gdx.input.isKeyPressed(Keys.LEFT))
 				Toggle2 = 1;
@@ -190,15 +190,10 @@ public class MenuScreen extends Screen{
 		for (Stars_Class s : stars)
 			s.render(sb);
 		sb.draw(title, ((MainGame.WIDTH/2) - (TextureManager.TITLE_IMAGE.getWidth()/2)), (MainGame.HEIGHT / 2));
-
-		displayStartFont.setColor(1.0f, 1.0f, 1.0f, 1.0f);
-		displayStartFont.draw(sb, Start, (MainGame.WIDTH / 2) / 1.2f, ((MainGame.HEIGHT / 2)));
-		
-		displayChangeGameDifficultyFont.setColor(1.0f, 1.0f, 1.0f, 1.0f);
-		displayChangeGameDifficultyFont.draw(sb, changeGameDifficulty, (MainGame.WIDTH / 2) / 1.35f, ((MainGame.HEIGHT / 2)/1.1f));
-
-		displayGameDifficultyFont.setColor(1.0f, 1.0f, 1.0f, 1.0f);
-		displayGameDifficultyFont.draw(sb, gameDifficulty, (MainGame.WIDTH / 2) / 1.15f, ((MainGame.HEIGHT / 2)/1.3f));
+		sb.draw(menuTitle, ((MainGame.WIDTH/2) - (TextureManager.MENU_IMAGE.getWidth()/2)),
+				(MainGame.HEIGHT / 2) - (TextureManager.TITLE_IMAGE.getHeight()/2));
+		sb.draw(difficultyImage, ((MainGame.WIDTH/2) - (TextureManager.DIFFICULTY_MEDIUM.getWidth()/2)),
+				(MainGame.HEIGHT / 2) - (TextureManager.MENU_IMAGE.getHeight() - 7));
 		sb.end();
 	}
 

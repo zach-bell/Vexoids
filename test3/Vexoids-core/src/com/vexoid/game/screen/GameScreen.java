@@ -1,9 +1,11 @@
 package com.vexoid.game.screen;
 
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.vexoid.game.MainGame;
 import com.vexoid.game.SoundManager;
+import com.vexoid.game.TextureManager;
 import com.vexoid.game.camera.OrthoCamera;
 import com.vexoid.game.entity.EntityManager;
 import com.vexoid.game.entity.TimeManager;
@@ -20,7 +22,6 @@ public class GameScreen extends Screen{
 	String displayDistance;
 	String displayScore;
 	String displayPlayerHealth;
-	String displayPlayerShootingMode;
 	String displayPlayerLives;
 	String displayPlayerBulletMode;
 	String displayDifficulty;
@@ -32,11 +33,13 @@ public class GameScreen extends Screen{
 	BitmapFont displayScoreFont;
 	BitmapFont displayPlayerHealthFont;
 	BitmapFont displayPlayerLivesFont;
-	BitmapFont displayPlayerShootingModeFont;
 	BitmapFont displayPlayerBulletModeFont;
 	BitmapFont displayDifficultyFont;
 	BitmapFont displayLevelFont;
 	BitmapFont displayIntroTextFont;
+	
+	Texture shootingMode = TextureManager.HUD_SPREAD2;
+	
 	
 	public void create(ScreenManager screenManager, String difficulty) {
 		gameDifficulty = difficulty;
@@ -49,7 +52,6 @@ public class GameScreen extends Screen{
 	    displayDistanceFont = new BitmapFont();
 	    displayScoreFont = new BitmapFont();
 	    displayPlayerHealthFont = new BitmapFont();
-	    displayPlayerShootingModeFont = new BitmapFont();
 	    displayPlayerLivesFont = new BitmapFont();
 	    displayPlayerBulletModeFont = new BitmapFont();
 	    displayDifficultyFont = new BitmapFont();
@@ -76,11 +78,15 @@ public class GameScreen extends Screen{
 		else
 			infinity = "" + timeManager.getLevel();
 		
-		displayScore = "Score : " + EntityManager.enemyKillScore();
-		displayPlayerHealth = "Health : " + (int) EntityManager.checkPlayerHealth() + "%";
-		displayPlayerShootingMode = "Spread : " + EntityManager.getPlayerShootingMode();
-		displayPlayerLives = "Lives : " + EntityManager.getPlayerLives();
-		displayPlayerBulletMode = "Mode : " + EntityManager.getPlayerBulletMode();
+		if(entityManager.getPlayerShootingMode() == "Narrow")
+			shootingMode = TextureManager.HUD_SPREAD2;
+		else
+			shootingMode = TextureManager.HUD_SPREAD1;
+		
+		displayScore = "Score : " + entityManager.enemyKillScore();
+		displayPlayerHealth = "Health : " + (int) entityManager.checkPlayerHealth() + "%";
+		displayPlayerLives = "Lives : " + entityManager.getPlayerLives();
+		displayPlayerBulletMode = "Mode : " + entityManager.getPlayerBulletMode();
 		displayDifficulty = "Difficulty : " + gameDifficulty;
 		displayDistance = "Distance : " + timeManager.getDistance() + " Km";
 		displayLevel = "Level : " + infinity;
@@ -107,12 +113,13 @@ public class GameScreen extends Screen{
 		
 		displayPlayerHealthFont.setColor(1.0f, 1.0f, 1.0f, 1.0f);
 		displayPlayerHealthFont.draw(sb, displayPlayerHealth, 25, 35);
-		
-		displayPlayerShootingModeFont.setColor(1.0f, 1.0f, 1.0f, 1.0f);
-		displayPlayerShootingModeFont.draw(sb, displayPlayerShootingMode, (MainGame.WIDTH)-125, 35);
+
+		sb.draw(shootingMode, ((MainGame.WIDTH - TextureManager.HUD_SPREAD2.getWidth())),
+				TextureManager.HUD_SPREAD2.getHeight() / 3);
+		//(MainGame.WIDTH)-125, 35
 		
 		displayPlayerBulletModeFont.setColor(1.0f, 1.0f, 1.0f, 1.0f);
-		displayPlayerBulletModeFont.draw(sb, displayPlayerBulletMode, (MainGame.WIDTH)-125, 50);
+		displayPlayerBulletModeFont.draw(sb, displayPlayerBulletMode, (MainGame.WIDTH)-100, 25);
 		
 		displayPlayerLivesFont.setColor(1.0f, 1.0f, 1.0f, 1.0f);
 		displayPlayerLivesFont.draw(sb, displayPlayerLives, 25, 50);

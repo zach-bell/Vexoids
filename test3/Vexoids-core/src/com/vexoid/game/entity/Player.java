@@ -21,7 +21,7 @@ public class Player extends Entity{
 	public static float PositionX;
 	private int shootDelay = 20;
 	private float spread = 0.5f;
-	static String shootingMode = "narrow", bulletMode = "light";
+	static String shootingMode = "Narrow", bulletMode = "light";
 	private String difficulty;
 	private boolean allowedRegen = true;
 		

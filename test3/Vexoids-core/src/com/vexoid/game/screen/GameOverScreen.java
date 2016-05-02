@@ -3,11 +3,9 @@ package com.vexoid.game.screen;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.vexoid.game.MainGame;
 import com.vexoid.game.SoundManager;
 import com.vexoid.game.camera.OrthoCamera;
@@ -16,7 +14,6 @@ import com.vexoid.game.entity.TimeManager;
 public class GameOverScreen extends Screen{
 	private OrthoCamera camera;
 	String gameDifficulty;
-	private ScreenManager screenManager;
 	
 	BitmapFont displayTitleFont;
 	BitmapFont displayGameDifficultyFont;
@@ -31,7 +28,6 @@ public class GameOverScreen extends Screen{
 	Skin buttonSkin;
 	
 	public void create(ScreenManager screenManager, String difficulty) {
-		this.screenManager = screenManager;
 		gameDifficulty = difficulty;
 		camera = new OrthoCamera();
 		camera.resize();
@@ -50,16 +46,8 @@ public class GameOverScreen extends Screen{
 		StartButton = new TextButton("Press Enter To Start Again", textButtonStyle);
 		StartButton.setPosition((MainGame.WIDTH / 2) - 50, (MainGame.HEIGHT / 2) + 25);
 		StartButton.setSize(100, 100);
-		StartButton.addListener(new ClickListener() {
-			@Override
-			public void touchUp(InputEvent e, float x, float y, int point, int button){
-				startButtonClicked();
-			}
-		});
 	}
-	public void startButtonClicked(){
-		screenManager.setScreen(new MenuScreen(), gameDifficulty);
-	}
+	
 	private int[] oneTime = {0};
 	public void update() {
 		camera.update();

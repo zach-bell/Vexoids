@@ -23,30 +23,56 @@ public class Stars_Class{
 	
 	public static Texture getTexture(int text){
 		int planet = MathUtils.random(1,4);
-		if(text<=18)
+		if(text<=10)
 			return TextureManager.STAR1;
 		else
-		if(text<=36 && text>18)
+		if(text<=20 && text>10)
 			return TextureManager.STAR2;
 		else
-		if(text<=54 && text>36)
+		if(text<=30 && text>20)
 			return TextureManager.STAR3;
 		else
-		if(text<=72 && text>54)
+		if(text<=40 && text>30)
 			return TextureManager.STAR4;
 		else
-		if(text<=90 && text>72)
+		if(text<=50 && text>40)
 			return TextureManager.STAR5;
 		else
-		if(text==100){
+		if(text<=60 && text>50)
+			return TextureManager.STAR6;
+		else
+		if(text<=70 && text>60)
+			return TextureManager.STAR7;
+		else
+		if(text<=80 && text>70)
+			return TextureManager.STAR8;
+		else
+		if(text<=90 && text>80)
+			return TextureManager.STAR9;
+		else
+		if(text<=100 && text>90)
+			return TextureManager.STAR10;
+		else
+					
+		if(text==101){
 			if(planet>=3){
 				return TextureManager.PLANET1;
 			}else{return TextureManager.PLANET1_1;}
 		}else
-		if(text==101){
+		if(text==102){
 			if(planet>=3){
 				return TextureManager.PLANET2;
-			}else{return TextureManager.PLANET2_2;}
+			}else{return TextureManager.PLANET2_1;}
+		}else
+		if(text==103){
+			if(planet>=3){
+				return TextureManager.PLANET3;
+			}else{return TextureManager.PLANET3_1;}
+		}else
+		if(text==104){
+			if(planet>=3){
+				return TextureManager.PLANET4;
+			}else{return TextureManager.PLANET4_1;}
 		}else
 			return TextureManager.STARS;
 	}

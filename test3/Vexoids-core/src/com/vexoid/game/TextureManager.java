@@ -4,16 +4,18 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 
 public class TextureManager {
-
-	public static Texture TITLE_IMAGE = new Texture(Gdx.files.internal("assets/image/Vexoids Title.png"));
 	
-	public static Texture PLAYER = new Texture(Gdx.files.internal("assets/image/ship2.png"));
+//	GUI
+	public static Texture TITLE_IMAGE = new Texture(Gdx.files.internal("assets/image/gui/Vexoids Title.png"));
+	public static Texture MENU_IMAGE = new Texture(Gdx.files.internal("assets/image/gui/titlescreen_1.png"));
 	
-	public static Texture BASIC_ENEMY = new Texture(Gdx.files.internal("assets/image/jellies2.png"));
-	public static Texture ADVANCED_ENEMY = new Texture(Gdx.files.internal("assets/image/jellies4.png"));
-	public static Texture LASER_ENEMY = new Texture(Gdx.files.internal("assets/image/enemyship_2.png"));
+	public static Texture HUD_SPREAD1 = new Texture(Gdx.files.internal("assets/image/gui/HUD_Fire_1 clear.png"));
+	public static Texture HUD_SPREAD2 = new Texture(Gdx.files.internal("assets/image/gui/HUD_Fire_2 clear.png"));
 
-	public static Texture BOSS_1 = new Texture(Gdx.files.internal("assets/image/jelly boss blue.png"));
+	public static Texture DIFFICULTY_EASY = new Texture(Gdx.files.internal("assets/image/gui/difficulty_1.png"));
+	public static Texture DIFFICULTY_MEDIUM = new Texture(Gdx.files.internal("assets/image/gui/difficulty_2.png"));
+	public static Texture DIFFICULTY_HARD = new Texture(Gdx.files.internal("assets/image/gui/difficulty_3.png"));
+	public static Texture DIFFICULTY_VEXOID = new Texture(Gdx.files.internal("assets/image/gui/difficulty_4.png"));
 	
 //	Bullets
 	//	Player Bullets
@@ -34,6 +36,18 @@ public class TextureManager {
 	public static Texture LASER_BULLET3 = new Texture(Gdx.files.internal("assets/image/bullets/laser4.png"));
 	public static Texture LASER_BULLET4 = new Texture(Gdx.files.internal("assets/image/bullets/laser5.png"));
 
+//	Other Entities
+
+	public static Texture PLAYER = new Texture(Gdx.files.internal("assets/image/ship2.png"));
+	
+	//	Enemies
+	public static Texture BASIC_ENEMY = new Texture(Gdx.files.internal("assets/image/jellies2.png"));
+	public static Texture ADVANCED_ENEMY = new Texture(Gdx.files.internal("assets/image/jellies4.png"));
+	public static Texture LASER_ENEMY = new Texture(Gdx.files.internal("assets/image/enemyship_2.png"));
+
+	//	Bosses
+	public static Texture BOSS_1 = new Texture(Gdx.files.internal("assets/image/jelly boss blue.png"));
+	
 //	General Effects
 	// Laser Warning effect
 	public static Texture LASER_WARNING1 = new Texture(Gdx.files.internal("assets/image/bullets/laser-indicator1.png"));
@@ -62,18 +76,29 @@ public class TextureManager {
 	
 
 	//	Stars
+	public static Texture STARS = new Texture(Gdx.files.internal("assets/image/stars/stars.png"));
 	public static Texture STAR1 = new Texture(Gdx.files.internal("assets/image/stars/star-1.png"));
 	public static Texture STAR2 = new Texture(Gdx.files.internal("assets/image/stars/star-2.png"));
 	public static Texture STAR3 = new Texture(Gdx.files.internal("assets/image/stars/star-3.png"));
 	public static Texture STAR4 = new Texture(Gdx.files.internal("assets/image/stars/star-4.png"));
 	public static Texture STAR5 = new Texture(Gdx.files.internal("assets/image/stars/star-5.png"));
-	public static Texture STARS = new Texture(Gdx.files.internal("assets/image/stars/stars.png"));
+	public static Texture STAR6 = new Texture(Gdx.files.internal("assets/image/stars/star-6.png"));
+	public static Texture STAR7 = new Texture(Gdx.files.internal("assets/image/stars/star-7.png"));
+	public static Texture STAR8 = new Texture(Gdx.files.internal("assets/image/stars/star-8.png"));
+	public static Texture STAR9 = new Texture(Gdx.files.internal("assets/image/stars/star-9.png"));
+	public static Texture STAR10 = new Texture(Gdx.files.internal("assets/image/stars/star-10.png"));
+	
 	
 	//	Planets
 	public static Texture PLANET1 = new Texture(Gdx.files.internal("assets/image/stars/planet1.png"));
 	public static Texture PLANET1_1 = new Texture(Gdx.files.internal("assets/image/stars/planet1-1.png"));
 	public static Texture PLANET2 = new Texture(Gdx.files.internal("assets/image/stars/planet2.png"));
-	public static Texture PLANET2_2 = new Texture(Gdx.files.internal("assets/image/stars/planet2-1.png"));
+	public static Texture PLANET2_1 = new Texture(Gdx.files.internal("assets/image/stars/planet2-1.png"));
+	public static Texture PLANET3 = new Texture(Gdx.files.internal("assets/image/stars/planet3.png"));
+	public static Texture PLANET3_1 = new Texture(Gdx.files.internal("assets/image/stars/planet3-1.png"));
+	public static Texture PLANET4 = new Texture(Gdx.files.internal("assets/image/stars/planet4.png"));
+	public static Texture PLANET4_1 = new Texture(Gdx.files.internal("assets/image/stars/planet4-1.png"));
+	
 	
 	/*
 	 * The artwork for this project was created and donated by Frank Porcello. If this project is to generate any sum of currency

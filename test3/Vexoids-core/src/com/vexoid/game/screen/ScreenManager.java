@@ -37,6 +37,21 @@ public class ScreenManager {
 			SoundManager.stopMusic();
 			setScreen(new MenuScreen(), difficulty);
 			wait = 100;
-		}		
+		}
+		if (Gdx.input.isKeyPressed(Keys.ESCAPE) && (getCurrentScreen().whatScreen() == "OptionsScreen") && wait == 0){
+			getCurrentScreen().dispose();
+			setScreen(new MenuScreen(), difficulty);
+			wait = 100;
+		}
+		if (Gdx.input.isKeyPressed(Keys.O) && (getCurrentScreen().whatScreen() == "MenuScreen") && wait == 0){
+			getCurrentScreen().dispose();
+			setScreen(new OptionsScreen(), difficulty);
+			wait = 100;
+		}
+		if (Gdx.input.isKeyPressed(Keys.ENTER) && (getCurrentScreen().whatScreen() == "SplashScreen") && wait == 0){
+			getCurrentScreen().dispose();
+			setScreen(new MenuScreen(), difficulty);
+			wait = 100;
+		}
 	}
 }

@@ -1,7 +1,12 @@
 package com.vexoid.game.entity;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.Scanner;
+
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
@@ -14,12 +19,28 @@ import com.vexoid.game.entity.bullets.Red_Bullet2;
 import com.vexoid.game.entity.bullets.Yellow_Bullet2;
 
 public class Player extends Entity{
-
+	//controls
+	private int upArrow = com.badlogic.gdx.Input.Keys.UP;
+	private int leftArrow = com.badlogic.gdx.Input.Keys.LEFT;
+	private int downArrow = com.badlogic.gdx.Input.Keys.DOWN;
+	private int rightArrow = com.badlogic.gdx.Input.Keys.RIGHT;
+	private int up = com.badlogic.gdx.Input.Keys.W;
+	private int left = com.badlogic.gdx.Input.Keys.A;
+	private int down = com.badlogic.gdx.Input.Keys.S;
+	private int right = com.badlogic.gdx.Input.Keys.D;
+	private int fire = com.badlogic.gdx.Input.Keys.SPACE;
+	private int changeSpread = com.badlogic.gdx.Input.Keys.B;
+	private int changeMode = com.badlogic.gdx.Input.Keys.F;
+	private int shitf = com.badlogic.gdx.Input.Keys.SHIFT_LEFT;
+	//url to int codes https://libgdx.badlogicgames.com/nightlies/docs/api/constant-values.html#com.badlogic.gdx.Input.Keys.SYM
+	private static final String[] defaultControls = {"up=51", "left=29", "down=47", "right=32", "fire=62", "changeSpread=30", "changeMode=34", "slow=59"};
+	
 	private final EntityManager entityManager;
 	private long lastFire;
 	private final OrthoCamera camera;
 	public static float PositionX;
 	private int shootDelay = 20;
+	private float slow = 1f;
 	private float spread = 0.5f;
 	static String shootingMode = "Narrow", bulletMode = "light";
 	private String difficulty;
@@ -31,14 +52,19 @@ public class Player extends Entity{
 		this.camera = camera;
 		this.difficulty = difficulty;
 		PositionX = pos.x;
+		//if vexoid difficulty, the player cannot regen health
 		if(this.difficulty == "vexoid")
 			allowedRegen = false;
+		//call the method to validate the controls file then read its contents
+		readControls(validateControls());
 	}
+	
 	
 // Health stuff
 	float healthPercent = 100;
 	int clock = 0;
 	boolean playerDied = false, playerOutOfLives = false;
+	//method for health regen
 	public void health(){
 		clock ++;
 		if(healthPercent >= 100.000)
@@ -114,25 +140,59 @@ public class Player extends Entity{
  * controls of *
  * the player  *
  * * * * * * * */
-		if ((Gdx.input.isKeyPressed(Keys.A)&&!Gdx.input.isKeyPressed(Keys.D))&&(pos.x > 0)||(dir == 1)||
-				((Gdx.input.isKeyPressed(Keys.LEFT)&&!Gdx.input.isKeyPressed(Keys.RIGHT))&&(pos.x > 0))) {
-				setDirection(-400, 0);
+		final int highSpeed = 400;
+		final int lowSpeed = 300;
+		if(Gdx.input.isKeyPressed(shitf)){
+			slow = 0.6f;
+			this.texture = TextureManager.PLAYER_GLOW;
 		} else {
-			if ((Gdx.input.isKeyPressed(Keys.D)&&!Gdx.input.isKeyPressed(Keys.A))
-					&&(pos.x < MainGame.WIDTH - this.texture.getWidth())||(dir ==2)
-					||((Gdx.input.isKeyPressed(Keys.RIGHT)&&!Gdx.input.isKeyPressed(Keys.LEFT))
+			slow = 1f;
+			this.texture = TextureManager.PLAYER;
+		}
+		//left if block
+		if ((Gdx.input.isKeyPressed(left)&&!Gdx.input.isKeyPressed(right))&&(pos.x > 0)||(dir == 1)||
+				((Gdx.input.isKeyPressed(leftArrow)&&!Gdx.input.isKeyPressed(rightArrow))&&(pos.x > 0))) {
+			//if up and not down
+			if((Gdx.input.isKeyPressed(up)&&!Gdx.input.isKeyPressed(down))&&(pos.y < MainGame.HEIGHT - this.texture.getHeight())||
+					(Gdx.input.isKeyPressed(upArrow)&&!Gdx.input.isKeyPressed(downArrow))&&(pos.y < MainGame.HEIGHT - this.texture.getHeight())){
+				setDirection(-lowSpeed*slow, lowSpeed*slow);
+			}//if down and not up
+			else if((Gdx.input.isKeyPressed(down)&&!Gdx.input.isKeyPressed(up))&&(pos.y > 0)||
+					(Gdx.input.isKeyPressed(downArrow)&&!Gdx.input.isKeyPressed(upArrow))&&(pos.y > 0)){
+				setDirection(-lowSpeed*slow, -lowSpeed*slow);
+			}//all else
+			else{
+				setDirection(-highSpeed*slow, 0);
+			}
+		} else {
+			//right if block
+			if ((Gdx.input.isKeyPressed(right)&&!Gdx.input.isKeyPressed(left))&&(pos.x < MainGame.WIDTH - this.texture.getWidth())||(dir ==2)
+					||((Gdx.input.isKeyPressed(rightArrow)&&!Gdx.input.isKeyPressed(leftArrow))
 							&&(pos.x < MainGame.WIDTH - this.texture.getWidth()))) {
-			setDirection(400, 0);
+				//if up and not down
+				if((Gdx.input.isKeyPressed(up)&&!Gdx.input.isKeyPressed(down))&&(pos.y < MainGame.HEIGHT - this.texture.getHeight())||
+						(Gdx.input.isKeyPressed(upArrow)&&!Gdx.input.isKeyPressed(downArrow))&&(pos.y < MainGame.HEIGHT - this.texture.getHeight())){
+					setDirection(lowSpeed*slow, lowSpeed*slow);
+				}//if down and not up
+				else if((Gdx.input.isKeyPressed(down)&&!Gdx.input.isKeyPressed(up))&&(pos.y > 0)||
+						(Gdx.input.isKeyPressed(downArrow)&&!Gdx.input.isKeyPressed(upArrow))&&(pos.y > 0)){
+					setDirection(lowSpeed*slow, -lowSpeed*slow);
+				}//all else
+				else{
+					setDirection(highSpeed*slow, 0);
+				}
 			} else {
-				if ((Gdx.input.isKeyPressed(Keys.W)&&!Gdx.input.isKeyPressed(Keys.S))
+				//up if block
+				if ((Gdx.input.isKeyPressed(up)&&!Gdx.input.isKeyPressed(down))
 						&&(pos.y < MainGame.HEIGHT - this.texture.getHeight())
-						|| (Gdx.input.isKeyPressed(Keys.UP)&&!Gdx.input.isKeyPressed(Keys.DOWN))
+						|| (Gdx.input.isKeyPressed(upArrow)&&!Gdx.input.isKeyPressed(downArrow))
 						&&(pos.y < MainGame.HEIGHT - this.texture.getHeight())) {
-					setDirection(0, 400);
+					setDirection(0, highSpeed*slow);
 				} else {
-					if ((Gdx.input.isKeyPressed(Keys.S)&&!Gdx.input.isKeyPressed(Keys.W))
-							&&(pos.y > 0)|| (Gdx.input.isKeyPressed(Keys.DOWN)&&!Gdx.input.isKeyPressed(Keys.UP))&&(pos.y > 0)) {
-						setDirection(0, -400);
+					//down if block
+					if ((Gdx.input.isKeyPressed(down)&&!Gdx.input.isKeyPressed(up))
+							&&(pos.y > 0)|| (Gdx.input.isKeyPressed(downArrow)&&!Gdx.input.isKeyPressed(upArrow))&&(pos.y > 0)) {
+						setDirection(0, -highSpeed*slow);
 					} else {
 						setDirection(0,0);
 						}
@@ -140,44 +200,44 @@ public class Player extends Entity{
 				}
 			}
 		
-	//	Shooting modes
-		if (Gdx.input.isKeyPressed(Keys.B)&& Switch != 1 && Toggle == 1){
+	//	Shooting modes (spread)
+		if (Gdx.input.isKeyPressed(changeSpread)&& Switch != 1 && Toggle == 1){
 			shootingMode = "Wide";
 			spread = 3.5f;
 			SoundManager.sound1.play(1);
 			Toggle = 2;
 		} else
-		if (Gdx.input.isKeyPressed(Keys.B)&& Switch != 1 && Toggle == 2){
+		if (Gdx.input.isKeyPressed(changeSpread)&& Switch != 1 && Toggle == 2){
 			shootingMode = "Narrow";
 			spread = 0.5f;
 			SoundManager.sound1.play(1);
 			Toggle = 1;
 		}
-		if (Gdx.input.isKeyPressed(Keys.B))
+		if (Gdx.input.isKeyPressed(changeSpread))
 			Switch = 1;
 		else
 			Switch = 0;
 		
 //	Switch Bullets
-		if (Gdx.input.isKeyPressed(Keys.F)&& Switch2 != 1 && Toggle2 == 1){
+		if (Gdx.input.isKeyPressed(changeMode)&& Switch2 != 1 && Toggle2 == 1){
 			bulletMode = "energy";
 			shootDelay = 10;
 			SoundManager.sound1.play(1);
 			Toggle2 = 2;
 		} else
-		if (Gdx.input.isKeyPressed(Keys.F)&& Switch2 != 1 && Toggle2 == 2){
+		if (Gdx.input.isKeyPressed(changeMode)&& Switch2 != 1 && Toggle2 == 2){
 			bulletMode = "heavy";
 			shootDelay = 50;
 			SoundManager.sound1.play(1);
 			Toggle2 = 3;
 		} else
-		if (Gdx.input.isKeyPressed(Keys.F)&& Switch2 != 1 && Toggle2 == 3){
+		if (Gdx.input.isKeyPressed(changeMode)&& Switch2 != 1 && Toggle2 == 3){
 			bulletMode = "light";
 			shootDelay = 17;
 			SoundManager.sound1.play(1);
 			Toggle2 = 1;
 		}			
-		if (Gdx.input.isKeyPressed(Keys.F))
+		if (Gdx.input.isKeyPressed(changeMode))
 			Switch2 = 1;
 		else
 			Switch2 = 0;
@@ -188,7 +248,7 @@ public class Player extends Entity{
 		float var = MathUtils.random(2,6);
 		float var2 = 3;
 		
-		if (Gdx.input.isKeyPressed(Keys.SPACE) || dir ==1 || dir == 2){
+		if (Gdx.input.isKeyPressed(fire) || dir ==1 || dir == 2){
 			if(bulletMode == "light")
 				if (System.currentTimeMillis() - lastFire >= shootDelay) {
 					int r = MathUtils.random(0,1);
@@ -227,5 +287,87 @@ public class Player extends Entity{
 	boolean canPlayerMove = true;
 	public void playerCanMove(boolean moving) {
 		canPlayerMove = moving;
+	}
+	
+	//this method ensures that the %user%\Documents\Vexoids\controls.txt file exists and populates it with the controls if necessary
+	private File validateControls(){
+		//building the string for the path to C:\Vexoids\controls.txt
+		String ctrlFileString = "C:\\\\Vexoids\\controls.txt";
+		File ctrlFile = new File(ctrlFileString);
+		//try block for File writing
+		try{
+		//invoked if the file/directory does NOT exist
+		if(!ctrlFile.exists()){
+			//invoked if the directory does not exist
+			if(!ctrlFile.getParentFile().exists()){
+				if (ctrlFile.getParentFile().mkdir()) {
+				    ctrlFile.createNewFile();
+				    System.out.println("File and directory created at " + ctrlFileString.toString());
+				    generateDefaults(ctrlFile);
+				} else {
+				    throw new IOException("Failed to create directory " + ctrlFile.getParent());
+				}
+			}//invoked if just the file does not exist
+			else{
+				ctrlFile.createNewFile();
+				System.out.println("File created at " + ctrlFileString.toString());
+				generateDefaults(ctrlFile);
+			}
+		}//invoked if the file DOES exist
+		else{
+			System.out.println("controls file exists at " + ctrlFileString.toString());
+		}
+		}catch(java.io.IOException e){
+			System.err.print(e);
+			System.exit(1);
+		}
+		return ctrlFile;
+	}
+		
+	//this method grabs the contents from the controls file and populates variables
+	private void readControls(File ctrlFile){
+		try(Scanner scanner = new Scanner(ctrlFile);){
+			int i = 0;
+			while (scanner.hasNextLine()){
+		        String[] s = scanner.next().split("=");
+		        switch(i){
+		        case 0: up = Integer.parseInt(s[1]);
+		        case 1: left = Integer.parseInt(s[1]);
+		        case 2: down = Integer.parseInt(s[1]);
+		        case 3: right = Integer.parseInt(s[1]);
+		        case 4: fire = Integer.parseInt(s[1]);
+		        case 5: changeSpread = Integer.parseInt(s[1]);
+		        case 6: changeMode = Integer.parseInt(s[1]);
+		        case 7: shitf = Integer.parseInt(s[1]);
+		        }
+		        i++;
+		    }
+			scanner.close();
+		} catch (Exception e) {//catch all.. deletes the file then recreates with default controls
+			if(ctrlFile.delete()){
+				readControls(validateControls());
+			}
+			else{
+				System.exit(1);
+			}
+		}
+	}
+		
+	//this method takes a file object and populates that file with the controls specified
+	private void generateDefaults(File f){
+		//try block in case the file suddenly disappears
+		try {
+			PrintWriter w = new PrintWriter(f);
+			for(int i = 0;i<defaultControls.length;i++){
+				w.print(defaultControls[i]);
+				if(i<defaultControls.length-1)
+					w.print("\n");
+			}
+			w.close();
+
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+			System.exit(1);
+		}
 	}
 }

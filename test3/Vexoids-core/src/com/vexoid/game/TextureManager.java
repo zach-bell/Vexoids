@@ -5,7 +5,7 @@ import com.badlogic.gdx.graphics.Texture;
 
 public class TextureManager {
 	
-//	GUI
+	//	GUI
 	public static Texture TITLE_IMAGE = new Texture(Gdx.files.internal("assets/image/gui/Vexoids Title.png"));
 	public static Texture MENU_IMAGE = new Texture(Gdx.files.internal("assets/image/gui/titlescreen_1.png"));
 	
@@ -20,6 +20,11 @@ public class TextureManager {
 //	Bullets
 	//	Player Bullets
 	public static Texture BULLET1 = new Texture(Gdx.files.internal("assets/image/bullets/bullet1.png"));
+	public static Texture BULLET1_1 = new Texture(Gdx.files.internal("assets/image/bullets/bullet1-1.png"));
+	public static Texture BULLET1_2 = new Texture(Gdx.files.internal("assets/image/bullets/bullet1-2.png"));
+	public static Texture BULLET1_3 = new Texture(Gdx.files.internal("assets/image/bullets/bullet1-3.png"));
+	public static Texture BULLET1_4 = new Texture(Gdx.files.internal("assets/image/bullets/bullet1-4.png"));
+	
 	public static Texture BULLET1r = new Texture(Gdx.files.internal("assets/image/bullets/bullet1-r.png"));
 	public static Texture BULLET1y = new Texture(Gdx.files.internal("assets/image/bullets/bullet1-y.png"));
 	public static Texture BULLET1g = new Texture(Gdx.files.internal("assets/image/bullets/bullet1-g.png"));
@@ -39,7 +44,7 @@ public class TextureManager {
 //	Other Entities
 
 	public static Texture PLAYER = new Texture(Gdx.files.internal("assets/image/ship2.png"));
-	
+	public static Texture PLAYER_GLOW = new Texture(Gdx.files.internal("assets/image/ship2-glow.png"));
 	//	Enemies
 	public static Texture BASIC_ENEMY = new Texture(Gdx.files.internal("assets/image/jellies2.png"));
 	public static Texture ADVANCED_ENEMY = new Texture(Gdx.files.internal("assets/image/jellies4.png"));

@@ -21,7 +21,7 @@ import com.vexoid.game.entity.effects.BlastEffect;
 import com.vexoid.game.entity.effects.Effect1;
 import com.vexoid.game.entity.effects.Effect2;
 import com.vexoid.game.entity.effects.Effect3_LaserWarning;
-import com.vexoid.game.entity.stars.Stars_Class;
+import com.vexoid.game.entity.effects.Stars_Class;
 import com.vexoid.game.screen.ScreenManager;
 
 public class EntityManager {
@@ -29,16 +29,18 @@ public class EntityManager {
 	private final Array<Entity> entities = new Array<Entity>();
 	private final Array<Stars_Class> stars = new Array<Stars_Class>();
 	private final ScreenManager screenManager;
+	private CollisionManager collisionManager = new CollisionManager(this);
 	private static Player player;
 	public static int basicEnemiesCount =2;
 	public static int AdvancedEnemiesCount =-1;
+	private Texture screenEffects = TextureManager.NULL;
 	
 	String gameDifficulty;
 	public static int enemiesKilled = 0;
 	public int nullEnemiesKilled = 0;
 	public boolean isGameOver = false;
 	private float damageMultiplier, healthMultiplier;
-	public static int lives;
+	public int lives;
 	public int modifier=0;
 	
 	public EntityManager(OrthoCamera camera, ScreenManager screenManager, String difficulty) {
@@ -207,7 +209,7 @@ part of it
 		stars.add(entity);
 	}
 
-	private void doBlastEffect(Vector2 pos, int ammount, Texture texture, String color){
+	public void doBlastEffect(Vector2 pos, int ammount, Texture texture, String color){
 		Vector2 Position = pos;
 		for(int i=1; i <=ammount; i++){
 		addEntity(new BlastEffect(new Vector2(Position.x+(texture.getWidth()/2)+MathUtils.random(-5,5),
@@ -220,6 +222,27 @@ part of it
 		addEntity(new BlastEffect(new Vector2(Position.x+(texture.getWidth()/2)+MathUtils.random(-5,5),
 				Position.y+(texture.getWidth()/2)+MathUtils.random(-5,5)), new Vector2(0, 0), size, color));
 		}
+	}
+	public void doScreenEffects(String effectName, int percent){
+		if(effectName == "RedScreen"){	//	for player when hits low health
+			if(percent == 40)
+				screenEffects = TextureManager.EFFECT_SCREEN_RED_40;
+			else
+			if(percent == 30)
+				screenEffects = TextureManager.EFFECT_SCREEN_RED_30;
+			else
+			if(percent == 15)
+				screenEffects = TextureManager.EFFECT_SCREEN_RED_15;
+			else 
+				screenEffects = TextureManager.NULL;
+		} else
+		if(effectName == "BlueScreen"){
+			screenEffects = TextureManager.EFFECT_SCREEN_BLUE;
+		} else
+			screenEffects = TextureManager.NULL;
+	}
+	public Texture getScreenEffect(){
+		return screenEffects;
 	}
 	public void clearAllEntities(boolean PlayerToo){
 		entities.removeAll(getBasicEnemies(), false);
@@ -241,7 +264,10 @@ part of it
 	 ****************************/
 	private void checkCollisions() {
 		
-// 
+//	*****************
+//	Player Collisions
+//	*****************
+		
 		for (bullet1 n : getEnemyPurpleBullets()) {
 			if (player.getBounds().overlaps(n.getBounds())){
 			entities.removeValue(n, false);
@@ -256,307 +282,98 @@ part of it
 				player.decreaseHealth(0.9f * damageMultiplier);
 				}
 		}
+		
 /*	***************
 	Enemy Collision
 	***************
-		
-	***********
-	Basic Enemy
-	***********
 */
-		for (BasicEnemy e : getBasicEnemies()) {
-			for (Blue_Bullet2 m : getPlayerBlueBullets()) {
-				if (e.getBounds().overlaps(m.getBounds())) {
-					e.decreaseHealth(4 * healthMultiplier);;
-					entities.removeValue(m, false);
-					doBlastEffect(m.pos.cpy(),10,m.texture, "blue");
-					SoundManager.hit1.play(0.7f);
-					if (e.entityDied){
-						SoundManager.hit5.play(0.6f);
-						enemiesKilled += 100;
-						nullEnemiesKilled += 100;
-						doExplosion(e.pos.cpy(), 25, e.texture, 5, "blue");
-						entities.removeValue(e, false);
-					}
-				}
-			}
-			for (Red_Bullet2 m : getPlayerRedBullets()) {
-				if (e.getBounds().overlaps(m.getBounds())) {
-					e.decreaseHealth(3.5f * healthMultiplier);;
-					entities.removeValue(m, false);
-					doBlastEffect(m.pos.cpy(),10,m.texture, "red");
-					SoundManager.hit1.play(0.6f);
-					if (e.entityDied){
-						enemiesKilled += 100;
-						nullEnemiesKilled += 100;
-						doExplosion(e.pos.cpy(), 25, e.texture, 5, "red");
-						entities.removeValue(e, false);
-					}
-				}
-			}
-		//	Yellow Player Bullet
-			for (Yellow_Bullet2 m : getPlayerYellowBullets()) {
-				if (e.getBounds().overlaps(m.getBounds())) {
-					e.decreaseHealth(2 * healthMultiplier);;
-					entities.removeValue(m, false);
-					doBlastEffect(m.pos.cpy(),10,m.texture, "yellow");
-					SoundManager.hit1.play(0.6f);
-					if (e.entityDied){
-						enemiesKilled += 100;
-						nullEnemiesKilled += 100;
-						doExplosion(e.pos.cpy(), 25, e.texture, 5, "yellow");
-						entities.removeValue(e, false);
-					}
-				}
-			}
-			if (e.getBounds().overlaps(player.getBounds())){
-				player.decreaseHealth(25 * damageMultiplier);
-				SoundManager.hit2.play(0.3f);
-				entities.removeValue(e, false);
-				doBlastEffect(e.pos.cpy(),10,e.texture, "red");
-			}
-		}
+		collisionManager.checkCollisionsBasicEnemy(4, 3.5f, 2);
+
+		collisionManager.checkCollisionsAdvancedEnemy(1, 4.5f, 2);
 		
-//	**************
-//	Advanced Enemy
-//	**************
-		for (AdvancedEnemy e : getAdvancedEnemies()) {
-		// Blue Player bullet
-			for (Blue_Bullet2 m : getPlayerBlueBullets()) {
-				if (e.getBounds().overlaps(m.getBounds())) {
-					e.decreaseHealth(1 * healthMultiplier);;
-					entities.removeValue(m, false);
-					doBlastEffect(m.pos.cpy(),10,m.texture, "blue");
-					SoundManager.hit1.play(0.7f);
-					if (e.entityDied){
-						SoundManager.hit1.play(0.8f);
-						enemiesKilled += 250;
-						nullEnemiesKilled += 250;
-						doExplosion(e.pos.cpy(), 25, e.texture, 5, "blue");
-						entities.removeValue(e, false);
-					}
-				}
-			}
-		// Red Player Bullet
-			for (Red_Bullet2 m : getPlayerRedBullets()) {
-				if (e.getBounds().overlaps(m.getBounds())) {
-					e.decreaseHealth(4.5f * healthMultiplier);;
-					entities.removeValue(m, false);
-					doBlastEffect(m.pos.cpy(),10,m.texture, "red");
-					SoundManager.hit1.play(0.6f);
-					if (e.entityDied){
-						SoundManager.hit5.play(0.8f);
-						enemiesKilled += 250;
-						nullEnemiesKilled += 250;
-						doExplosion(e.pos.cpy(), 25, e.texture, 5, "red");
-						entities.removeValue(e, false);
-					}
-				}
-			}
-		//	Yellow Player Bullet
-			for (Yellow_Bullet2 m : getPlayerYellowBullets()) {
-				if (e.getBounds().overlaps(m.getBounds())) {
-					e.decreaseHealth(2 * healthMultiplier);;
-					entities.removeValue(m, false);
-					doBlastEffect(m.pos.cpy(),10,m.texture, "yellow");
-					SoundManager.hit1.play(0.6f);
-					if (e.entityDied){
-						enemiesKilled += 250;
-						nullEnemiesKilled += 250;
-						doExplosion(e.pos.cpy(), 25, e.texture, 5, "yellow");
-						entities.removeValue(e, false);
-					}
-				}
-			}
-		// If player runs into him
-			if (e.getBounds().overlaps(player.getBounds())){
-				player.decreaseHealth(25 * damageMultiplier);
-				SoundManager.hit2.play(0.3f);
-				entities.removeValue(e, false);
-				doBlastEffect(e.pos.cpy(),10,e.texture, "red");
-			}
-		}
-// *********
-// Laser Guy
-// *********
-		for (BasicLaserEnemy e : getBasicLaserEnemies()) {
-	// Blue Player bullet
-			for (Blue_Bullet2 m : getPlayerBlueBullets()) {
-				if (e.getBounds().overlaps(m.getBounds())) {
-					e.decreaseHealth(0.3f * healthMultiplier);;
-					entities.removeValue(m, false);
-					doBlastEffect(m.pos.cpy(),10,m.texture, "blue");
-					SoundManager.hit1.play(0.6f);
-					if (e.entityDied){
-						SoundManager.hit1.play(0.8f);
-						enemiesKilled += 500;
-						nullEnemiesKilled += 500;
-						doExplosion(e.pos.cpy(), 25, e.texture, 5, "red");
-						entities.removeValue(e, false);
-					}
-				}
-			}
-		// Red player bullet
-			for (Red_Bullet2 m : getPlayerRedBullets()) {
-				if (e.getBounds().overlaps(m.getBounds())) {
-					e.decreaseHealth(3.5f * healthMultiplier);;
-					entities.removeValue(m, false);
-					doBlastEffect(m.pos.cpy(),10,m.texture, "red");
-					SoundManager.hit1.play(0.6f);
-					if (e.entityDied){
-						SoundManager.hit5.play(0.8f);
-						enemiesKilled += 500;
-						nullEnemiesKilled += 500;
-						doExplosion(e.pos.cpy(), 25, e.texture, 5, "red");
-						entities.removeValue(e, false);
-					}
-				}
-			}
-		//	Yellow Player Bullet
-			for (Yellow_Bullet2 m : getPlayerYellowBullets()) {
-				if (e.getBounds().overlaps(m.getBounds())) {
-					e.decreaseHealth(1 * healthMultiplier);;
-					entities.removeValue(m, false);
-					doBlastEffect(m.pos.cpy(),10,m.texture, "yellow");
-					SoundManager.hit1.play(0.6f);
-					if (e.entityDied){
-						SoundManager.hit1.play(0.6f);
-						enemiesKilled += 500;
-						nullEnemiesKilled += 500;
-						doExplosion(e.pos.cpy(), 25, e.texture, 5, "yellow");
-						entities.removeValue(e, false);
-					}
-				}
-			}
-		// If player runs into him
-			if (e.getBounds().overlaps(player.getBounds())){
-				player.decreaseHealth(25 * damageMultiplier);
-				SoundManager.hit2.play(0.2f);
-				doBlastEffect(e.pos.cpy(),10,e.texture, "blue");
-				SoundManager.laserShot1.stop();
-				entities.removeValue(e, false);
-			}
-		}
-/*
- * 	Bosses
- */
-		for (Boss1 e : getBoss1()) {
-			// Blue Player bullet
-				for (Blue_Bullet2 m : getPlayerBlueBullets()) {
-					if (e.getBounds().overlaps(m.getBounds())) {
-						e.decreaseHealth(1 * healthMultiplier);;
-						entities.removeValue(m, false);
-						doBlastEffect(m.pos.cpy(),10,m.texture, "blue");
-						SoundManager.hit1.play(0.7f);
-						if (e.entityDied()){
-							SoundManager.hit1.play(0.8f);
-							enemiesKilled += 1500;
-							nullEnemiesKilled += 1500;
-							doExplosion(e.pos.cpy(), 25, e.texture, 5, "blue");
-							entities.removeValue(e, false);
-						}
-					}
-				}
-			// Red Player Bullet
-				for (Red_Bullet2 m : getPlayerRedBullets()) {
-					if (e.getBounds().overlaps(m.getBounds())) {
-						e.decreaseHealth(2 * healthMultiplier);;
-						entities.removeValue(m, false);
-						doBlastEffect(m.pos.cpy(),10,m.texture, "red");
-						SoundManager.hit1.play(0.6f);
-						if (e.entityDied()){
-							SoundManager.hit5.play(0.8f);
-							enemiesKilled += 1500;
-							nullEnemiesKilled += 1500;
-							doExplosion(e.pos.cpy(), 25, e.texture, 5, "red");
-							entities.removeValue(e, false);
-						}
-					}
-				}
-			//	Yellow Player Bullet
-				for (Yellow_Bullet2 m : getPlayerYellowBullets()) {
-					if (e.getBounds().overlaps(m.getBounds())) {
-						e.decreaseHealth(0.75f * healthMultiplier);;
-						entities.removeValue(m, false);
-						doBlastEffect(m.pos.cpy(),10,m.texture, "yellow");
-						SoundManager.hit1.play(0.6f);
-						if (e.entityDied()){
-							enemiesKilled += 1500;
-							nullEnemiesKilled += 1500;
-							doExplosion(e.pos.cpy(), 25, e.texture, 5, "yellow");
-							entities.removeValue(e, false);
-						}
-					}
-				}
-			// If player runs into him
-				if (e.getBounds().overlaps(player.getBounds())){
-					player.decreaseHealth(100 * damageMultiplier);
-					SoundManager.hit2.play(0.3f);
-					doBlastEffect(e.pos.cpy(),10,e.texture, "red");
-				}
-			}
+		collisionManager.checkCollisionsBasicLaserEnemy(0.3f, 3.5f, 1);
+		
+		collisionManager.checkCollisionsBoss1(1, 2, 0.7f);
+
 	}
 	public String getPlayerShootingMode(){
 		return player.shootingMode();
 	}
+	public Player getPlayer(){
+		return player;
+	}
 	public int getPlayerLives(){
 		return lives;
+	}
+	public float getDamageMultiplier(){
+		return damageMultiplier;
+	}
+	public float getHealthMultiplier(){
+		return healthMultiplier;
+	}
+	public void addToEnemiesKilled(int j){
+		enemiesKilled += j;
+	}
+	public void addToNullEnemiesKilled(int j){
+		nullEnemiesKilled += j;
 	}
 	
 /********************************************
  * 		All things relating to Arrays
  *********************************************/
-	
-	private Array<BasicEnemy> getBasicEnemies() {
+	public Array<Entity> getEntity(){
+		return entities;
+	}
+	public Array<BasicEnemy> getBasicEnemies() {
 		Array<BasicEnemy> ret = new Array<BasicEnemy>();
 		for (Entity e : entities)
 			if (e instanceof BasicEnemy)
 				ret.add((BasicEnemy)e);
 		return ret;
 	}
-	private Array<AdvancedEnemy> getAdvancedEnemies() {
+	public Array<AdvancedEnemy> getAdvancedEnemies() {
 		Array<AdvancedEnemy> ret = new Array<AdvancedEnemy>();
 		for (Entity e : entities)
 			if (e instanceof AdvancedEnemy)
 				ret.add((AdvancedEnemy)e);
 		return ret;
 	}
-	private Array<Boss1> getBoss1() {
+	public Array<Boss1> getBoss1() {
 		Array<Boss1> ret = new Array<Boss1>();
 		for (Entity e : entities)
 			if (e instanceof Boss1)
 				ret.add((Boss1)e);
 		return ret;
 	}
-	private Array<BasicLaserEnemy> getBasicLaserEnemies() {
+	public Array<BasicLaserEnemy> getBasicLaserEnemies() {
 		Array<BasicLaserEnemy> ret = new Array<BasicLaserEnemy>();
 		for (Entity l : entities)
 			if (l instanceof BasicLaserEnemy)
 				ret.add((BasicLaserEnemy)l);
 		return ret;
 	}
-	private Array<bullet1> getEnemyPurpleBullets() {
+	public Array<bullet1> getEnemyPurpleBullets() {
 		Array<bullet1> ret = new Array<bullet1>();
 		for (Entity n : entities)
 			if (n instanceof bullet1)
 				ret.add((bullet1)n);
 		return ret;
 	}
-	private Array<Blue_Bullet2> getPlayerBlueBullets() {
+	public Array<Blue_Bullet2> getPlayerBlueBullets() {
 		Array<Blue_Bullet2> ret = new Array<Blue_Bullet2>();
 		for (Entity e : entities)
 			if (e instanceof Blue_Bullet2)
 				ret.add((Blue_Bullet2)e);
 		return ret;
 	}
-	private Array<Red_Bullet2> getPlayerRedBullets() {
+	public Array<Red_Bullet2> getPlayerRedBullets() {
 		Array<Red_Bullet2> ret = new Array<Red_Bullet2>();
 		for (Entity e : entities)
 			if (e instanceof Red_Bullet2)
 				ret.add((Red_Bullet2)e);
 		return ret;
 	}
-	private Array<Yellow_Bullet2> getPlayerYellowBullets() {
+	public Array<Yellow_Bullet2> getPlayerYellowBullets() {
 		Array<Yellow_Bullet2> ret = new Array<Yellow_Bullet2>();
 		for (Entity e : entities)
 			if (e instanceof Yellow_Bullet2)
@@ -564,35 +381,35 @@ part of it
 		return ret;
 	}
 	
-	private Array<LaserBullet1> getLaserBullets() {
+	public Array<LaserBullet1> getLaserBullets() {
 		Array<LaserBullet1> ret = new Array<LaserBullet1>();
 		for (Entity e : entities)
 			if (e instanceof LaserBullet1)
 				ret.add((LaserBullet1)e);
 		return ret;
 	}
-	private Array<Effect1> getEffects1() {
+	public Array<Effect1> getEffects1() {
 		Array<Effect1> ret = new Array<Effect1>();
 		for (Entity t : entities)
 			if (t instanceof Effect1)
 				ret.add((Effect1)t);
 		return ret;
 	}
-	private Array<Effect2> getEffects2() {
+	public Array<Effect2> getEffects2() {
 		Array<Effect2> ret = new Array<Effect2>();
 		for (Entity t : entities)
 			if (t instanceof Effect2)
 				ret.add((Effect2)t);
 		return ret;
 	}
-	private Array<BlastEffect> getBlastEffect() {
+	public Array<BlastEffect> getBlastEffect() {
 		Array<BlastEffect> ret = new Array<BlastEffect>();
 		for (Entity t : entities)
 			if (t instanceof BlastEffect)
 				ret.add((BlastEffect)t);
 		return ret;
 	}
-	private Array<Effect3_LaserWarning> getEffect3_LaserWarning() {
+	public Array<Effect3_LaserWarning> getEffect3_LaserWarning() {
 		Array<Effect3_LaserWarning> ret = new Array<Effect3_LaserWarning>();
 		for (Entity t : entities)
 			if (t instanceof Effect3_LaserWarning)

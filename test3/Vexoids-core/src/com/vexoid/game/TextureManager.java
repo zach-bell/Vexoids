@@ -58,6 +58,12 @@ public class TextureManager {
 	public static Texture LASER_WARNING1 = new Texture(Gdx.files.internal("assets/image/bullets/laser-indicator1.png"));
 	public static Texture LASER_WARNING2 = new Texture(Gdx.files.internal("assets/image/bullets/laser-indicator2.png"));
 	
+	//	Screen Effects
+	public static Texture EFFECT_SCREEN_RED_40 = new Texture(Gdx.files.internal("assets/image/effects/screenEffectsRedCover40.png"));
+	public static Texture EFFECT_SCREEN_RED_30 = new Texture(Gdx.files.internal("assets/image/effects/screenEffectsRedCover30.png"));
+	public static Texture EFFECT_SCREEN_RED_15 = new Texture(Gdx.files.internal("assets/image/effects/screenEffectsRedCover15.png"));
+	
+	public static Texture EFFECT_SCREEN_BLUE = new Texture(Gdx.files.internal("assets/image/effects/screenEffectsBlue.png"));
 	//	Red effect
 	public static Texture RED_EFFECT1 = new Texture(Gdx.files.internal("assets/image/effects/red-effect1.png"));
 	public static Texture RED_EFFECT2 = new Texture(Gdx.files.internal("assets/image/effects/red-effect2.png"));
@@ -104,6 +110,8 @@ public class TextureManager {
 	public static Texture PLANET4 = new Texture(Gdx.files.internal("assets/image/stars/planet4.png"));
 	public static Texture PLANET4_1 = new Texture(Gdx.files.internal("assets/image/stars/planet4-1.png"));
 	
+	//	Blank texture mainly to stop effects so they are not always on
+	public static Texture NULL = new Texture(Gdx.files.internal("assets/image/effects/blank screen effect.png"));
 	
 	/*
 	 * The artwork for this project was created and donated by Frank Porcello. If this project is to generate any sum of currency

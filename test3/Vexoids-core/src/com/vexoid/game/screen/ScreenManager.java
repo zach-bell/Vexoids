@@ -30,28 +30,31 @@ public class ScreenManager {
 			getCurrentScreen().dispose();
 			SoundManager.stopMusic();
 			setScreen(new GameScreen(), difficulty);
-			wait = 100;
-		}
+			wait = 50;
+		} else
 		if (Gdx.input.isKeyPressed(Keys.ENTER) && (getCurrentScreen().whatScreen() == "GameOverScreen") && wait == 0){
 			getCurrentScreen().dispose();
 			SoundManager.stopMusic();
 			setScreen(new MenuScreen(), difficulty);
-			wait = 100;
-		}
-		if (Gdx.input.isKeyPressed(Keys.ESCAPE) && (getCurrentScreen().whatScreen() == "OptionsScreen") && wait == 0){
+			wait = 50;
+		} else
+		if (Gdx.input.isKeyPressed(Keys.ESCAPE) && (getCurrentScreen().whatScreen() == "OptionsScreen")
+				&& !OptionsScreen.isChanging() && wait == 0){
 			getCurrentScreen().dispose();
 			setScreen(new MenuScreen(), difficulty);
-			wait = 100;
-		}
+			wait = 50;
+		} else
 		if (Gdx.input.isKeyPressed(Keys.O) && (getCurrentScreen().whatScreen() == "MenuScreen") && wait == 0){
 			getCurrentScreen().dispose();
 			setScreen(new OptionsScreen(), difficulty);
-			wait = 100;
-		}
+			wait = 50;
+		} else
 		if (Gdx.input.isKeyPressed(Keys.ENTER) && (getCurrentScreen().whatScreen() == "SplashScreen") && wait == 0){
 			getCurrentScreen().dispose();
 			setScreen(new MenuScreen(), difficulty);
-			wait = 100;
-		}
+			wait = 50;
+		} 
+		else if (Gdx.input.isKeyPressed(Keys.ENTER) || Gdx.input.isKeyPressed(Keys.ESCAPE))
+			wait = 20;
 	}
 }

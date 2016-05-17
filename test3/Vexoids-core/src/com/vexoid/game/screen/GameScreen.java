@@ -100,6 +100,7 @@ public class GameScreen extends Screen{
 		sb.setProjectionMatrix(camera.combined);
 		sb.begin();
 		entityManager.render(sb);
+		sb.draw(entityManager.getScreenEffect(), 0, 0);
 	if(timeManager.getLevel() == 0){
 		displayIntroTextFont.setColor(1.0f, 1.0f, 1.0f, 1.0f);
 		displayIntroTextFont.draw(sb, displayIntroText, (MainGame.WIDTH/2)-100, (MainGame.HEIGHT/2));
@@ -129,6 +130,7 @@ public class GameScreen extends Screen{
 		
 		displayLevelFont.setColor(1.0f, 1.0f, 1.0f, 1.0f);
 		displayLevelFont.draw(sb, displayLevel, (MainGame.WIDTH)-225, (MainGame.HEIGHT)-20);
+		
 	}
 		sb.end();
 	}

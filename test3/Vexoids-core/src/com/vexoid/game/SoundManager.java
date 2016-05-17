@@ -26,6 +26,8 @@ public class SoundManager {
 	public static Sound hit3 = Gdx.audio.newSound(Gdx.files.internal("assets/sound/hits/hit3.mp3"));
 	public static Sound hit4 = Gdx.audio.newSound(Gdx.files.internal("assets/sound/hits/hit4.mp3"));
 	public static Sound hit5 = Gdx.audio.newSound(Gdx.files.internal("assets/sound/hits/hit5.mp3"));
+	public static Sound hit6 = Gdx.audio.newSound(Gdx.files.internal("assets/sound/hits/hit6.mp3"));
+	
 
 //	Cries
 	public static Sound cry1 = Gdx.audio.newSound(Gdx.files.internal("assets/sound/cries/cry1.mp3"));
@@ -36,13 +38,20 @@ public class SoundManager {
 	public static Sound shot1 = Gdx.audio.newSound(Gdx.files.internal("assets/sound/shots/shot1.mp3"));
 	public static Sound shot2 = Gdx.audio.newSound(Gdx.files.internal("assets/sound/shots/shot2.mp3"));
 	public static Sound shot3 = Gdx.audio.newSound(Gdx.files.internal("assets/sound/shots/shot3.mp3"));
+	public static Sound shot4 = Gdx.audio.newSound(Gdx.files.internal("assets/sound/shots/shot4.mp3"));
+	public static Sound shot5 = Gdx.audio.newSound(Gdx.files.internal("assets/sound/shots/shot5.mp3"));
+	public static Sound shot6 = Gdx.audio.newSound(Gdx.files.internal("assets/sound/shots/shot6.mp3"));
 	
+	public static Sound charge1 = Gdx.audio.newSound(Gdx.files.internal("assets/sound/shots/charge1.mp3"));
+
 	public static Sound laserShot1 = Gdx.audio.newSound(Gdx.files.internal("assets/sound/laser_shot.mp3"));
 
 //	Other sounds
 	public static Sound startSound = Gdx.audio.newSound(Gdx.files.internal("assets/sound/start_game.mp3"));
 	
 	public static Sound warning1 = Gdx.audio.newSound(Gdx.files.internal("assets/sound/warning.mp3"));
+	public static Sound warning2 = Gdx.audio.newSound(Gdx.files.internal("assets/sound/warning2.mp3"));
+	
 	public static Sound liveLost = Gdx.audio.newSound(Gdx.files.internal("assets/sound/live_lost.mp3"));
 
 	public static Sound sound1 = Gdx.audio.newSound(Gdx.files.internal("assets/sound/sound1.mp3"));
@@ -60,6 +69,9 @@ public class SoundManager {
 	}
 	public static void pauseMusic(){
 		CurrentMusic.pause();
+	}
+	public static float getMusicPosition(){
+		return CurrentMusic.getPosition();
 	}
 	public static void setMusic(Music music, float vol, boolean loop){
 		CurrentMusic = music;

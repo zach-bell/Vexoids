@@ -1,7 +1,4 @@
 package com.vexoid.game;
-
-
-
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
@@ -23,7 +20,7 @@ public class MainGame extends ApplicationAdapter {
 	public void create () {
 		batch = new SpriteBatch();
 		screenManager.setScreen(new SplashScreen(), difficulty);
-			    
+		new Options();
 	    System.out.println("Difficulty = " + difficulty);
 	}
 	public void render () {

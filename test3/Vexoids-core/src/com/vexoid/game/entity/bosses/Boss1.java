@@ -54,7 +54,7 @@ public class Boss1 extends Entity{
 	//health stuff
 	float additionalHealth = 0;
 	float healthPercent = 1750 +(additionalHealth);
-	boolean entityDied = false;
+	public boolean entityDied = false;
 	private int[] oneTime = {0,0,0,0,0,0};
 	public void health(){
 		if(healthPercent >= 1750.0 +(additionalHealth))

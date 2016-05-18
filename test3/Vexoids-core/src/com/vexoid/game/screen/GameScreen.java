@@ -8,16 +8,19 @@ import com.vexoid.game.SoundManager;
 import com.vexoid.game.TextureManager;
 import com.vexoid.game.camera.OrthoCamera;
 import com.vexoid.game.entity.EntityManager;
-import com.vexoid.game.entity.TimeManager;
+import com.vexoid.game.level.IntroLevel;
+import com.vexoid.game.level.Level;
+import com.vexoid.game.level.LevelManager;
 
 public class GameScreen extends Screen{
 	private OrthoCamera camera;
 	private static EntityManager entityManager;
-	private static TimeManager timeManager;
+	private static LevelManager levelManager;
 	public static int basicEnemiesCount = 4;
 	public String gameDifficulty;
 	int distance;
-	public static int count = 0;
+	public static int count = 0, step = 1;
+	private static Level level = new IntroLevel();
 
 	String displayDistance;
 	String displayScore;
@@ -37,6 +40,9 @@ public class GameScreen extends Screen{
 	BitmapFont displayDifficultyFont;
 	BitmapFont displayLevelFont;
 	BitmapFont displayIntroTextFont;
+	BitmapFont displayEndLevelDistanceTextFont;
+	BitmapFont displayEndLevelScoreTextFont;
+	
 	
 	Texture shootingMode = TextureManager.HUD_SPREAD2;
 	
@@ -47,7 +53,9 @@ public class GameScreen extends Screen{
 		camera.resize();
 		
 		entityManager = new EntityManager(camera,screenManager ,gameDifficulty);
-		timeManager = new TimeManager(screenManager, entityManager,gameDifficulty);
+		levelManager = new LevelManager(screenManager, entityManager,gameDifficulty);
+		LevelManager.setCurrentLevel(level);
+		LevelManager.setCurrentLevelStep(step);
 		
 	    displayDistanceFont = new BitmapFont();
 	    displayScoreFont = new BitmapFont();
@@ -57,26 +65,29 @@ public class GameScreen extends Screen{
 	    displayDifficultyFont = new BitmapFont();
 	    displayLevelFont = new BitmapFont();
 	    displayIntroTextFont = new BitmapFont();
+	    displayEndLevelDistanceTextFont = new BitmapFont();
+	    displayEndLevelScoreTextFont = new BitmapFont();
 	}
 	
 	public void update() {
 		camera.update();
 		entityManager.update();
-		timeManager.update();
-		count = timeManager.getCount();
-		if(timeManager.getLevel() == 0){
-			if(timeManager.getCount() <= 5)
+		levelManager.update();
+		
+		count = LevelManager.getCurrentLevel().getCount();
+		if(levelManager.getLevel() == 0){
+			if(LevelManager.getCurrentLevel().getCount() <= 5)
 				displayIntroText = "Light Years from home, you fly your ship...";
-			if(timeManager.getCount() > 5)
+			if(LevelManager.getCurrentLevel().getCount() > 5)
 				displayIntroText = "Get ready to fight...";
 		}
-		if(timeManager.getLevel() > 0){
+		if(levelManager.getLevel() > 0){
 			entityManager.listenForKeys();
 		}
-		if(timeManager.getLevel() == 9)
+		if(levelManager.getLevel() == 9)
 			infinity = "Infinity";
 		else
-			infinity = "" + timeManager.getLevel();
+			infinity = "" + levelManager.getLevel();
 		
 		if(entityManager.getPlayerShootingMode() == "Narrow")
 			shootingMode = TextureManager.HUD_SPREAD2;
@@ -88,7 +99,7 @@ public class GameScreen extends Screen{
 		displayPlayerLives = "Lives : " + entityManager.getPlayerLives();
 		displayPlayerBulletMode = "Mode : " + entityManager.getPlayerBulletMode();
 		displayDifficulty = "Difficulty : " + gameDifficulty;
-		displayDistance = "Distance : " + timeManager.getDistance() + " Km";
+		displayDistance = "Distance : " + LevelManager.getCurrentLevel().getDistance() + " Km";
 		displayLevel = "Level : " + infinity;
 		
 		if(entityManager.isGameOver()){
@@ -100,12 +111,25 @@ public class GameScreen extends Screen{
 		sb.setProjectionMatrix(camera.combined);
 		sb.begin();
 		entityManager.render(sb);
+		
 		sb.draw(entityManager.getScreenEffect(), 0, 0);
-	if(timeManager.getLevel() == 0){
+		
+	if(levelManager.getLevel() == 0){
 		displayIntroTextFont.setColor(1.0f, 1.0f, 1.0f, 1.0f);
 		displayIntroTextFont.draw(sb, displayIntroText, (MainGame.WIDTH/2)-100, (MainGame.HEIGHT/2));
 	}
-	if(timeManager.getLevel() > 0){
+	
+	if(LevelManager.getCurrentLevel().didPlayerFinish() || entityManager.isGameOver()){
+		displayEndLevelDistanceTextFont.setColor(1.0f, 1.0f, 1.0f, 1.0f);
+		displayEndLevelDistanceTextFont.draw(sb, "You completed the level in: " + LevelManager.getCurrentLevel().getDistance() + " Km",
+				(MainGame.WIDTH/2)-100, (MainGame.HEIGHT/2));
+		displayEndLevelScoreTextFont.setColor(1.0f, 1.0f, 1.0f, 1.0f);
+		displayEndLevelScoreTextFont.draw(sb, "With a score of: " + LevelManager.getCurrentLevel().getLevelScore(),
+				(MainGame.WIDTH/2)-100, (MainGame.HEIGHT/3));
+		
+	}
+	
+	if(levelManager.getLevel() > 0){
 		displayDistanceFont.setColor(1.0f, 1.0f, 1.0f, 1.0f);
 		displayDistanceFont.draw(sb, displayDistance, 25, (MainGame.HEIGHT)-20);
 		
@@ -138,27 +162,30 @@ public class GameScreen extends Screen{
 		return entityManager.isGameOver();
 	}
 	public static int getDistance(){
-		return timeManager.getDistance();
+		return LevelManager.getCurrentLevel().getDistance();
 	}
 	public static int getScore(){
 		return entityManager.getScore();
+	}
+	public static void setLevel(Level level){
+		GameScreen.level = level;
+	}
+	
+	public static void setLevelStep(int step){
+		GameScreen.step = step;
+		level.setStep(step);
 	}
 	
 	public void resize(int width, int height) {
 		camera.resize();
 	}
 
-	public void dispose() {
-		
-	}
+	public void dispose() {}
 
-	public void pause() {
-		
-	}
+	public void pause() {}
 
-	public void resume() {
-		
-	}
+	public void resume() {}
+	
 	public String whatScreen() {
 		return "GameScreen";
 	}

@@ -4,7 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.vexoid.game.screen.SplashScreen;
+import com.vexoid.game.screen.MenuScreen;
 import com.vexoid.game.screen.ScreenManager;
 
 public class MainGame extends ApplicationAdapter {
@@ -19,7 +19,7 @@ public class MainGame extends ApplicationAdapter {
 	
 	public void create () {
 		batch = new SpriteBatch();
-		screenManager.setScreen(new SplashScreen(), difficulty);
+		screenManager.setScreen(new MenuScreen(), difficulty);
 		new Options();
 	    System.out.println("Difficulty = " + difficulty);
 	}

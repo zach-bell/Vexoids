@@ -9,7 +9,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.vexoid.game.MainGame;
 import com.vexoid.game.SoundManager;
 import com.vexoid.game.camera.OrthoCamera;
-import com.vexoid.game.entity.TimeManager;
+import com.vexoid.game.level.IntroLevel;
+import com.vexoid.game.level.LevelManager;
 
 public class GameOverScreen extends Screen{
 	private OrthoCamera camera;
@@ -52,8 +53,8 @@ public class GameOverScreen extends Screen{
 	public void update() {
 		camera.update();
 		if(oneTime[0] == 0){
-			TimeManager.level = 0;
-			TimeManager.step = 1;
+			LevelManager.setCurrentLevel(new IntroLevel());;
+			LevelManager.setCurrentLevelStep(1);;
 			oneTime[0] = 1;
 		}
 	}
@@ -65,10 +66,10 @@ public class GameOverScreen extends Screen{
 		displayTitleFont.draw(sb, title, (MainGame.WIDTH / 2) - 50, ((MainGame.HEIGHT / 2)+ (MainGame.HEIGHT /4)));
 		
 		displayScoreFont.setColor(1.0f, 1.0f, 1.0f, 1.0f);
-		displayScoreFont.draw(sb, "Score: " + score, (MainGame.WIDTH / 2) - 40, ((MainGame.HEIGHT / 2)+ (MainGame.HEIGHT /4))-20);
+		displayScoreFont.draw(sb, "Total Score: " + score, (MainGame.WIDTH / 2) - 40, ((MainGame.HEIGHT / 2)+ (MainGame.HEIGHT /4))-20);
 		
 		displayDistanceFont.setColor(1.0f, 1.0f, 1.0f, 1.0f);
-		displayDistanceFont.draw(sb, "Distance: " + distance, (MainGame.WIDTH / 2)-40, ((MainGame.HEIGHT / 2)+ (MainGame.HEIGHT /4))-40);
+		displayDistanceFont.draw(sb, "Total Distance: " + distance, (MainGame.WIDTH / 2)-40, ((MainGame.HEIGHT / 2)+ (MainGame.HEIGHT /4))-40);
 		
 		
 		StartButton.draw(sb, 1.0f);

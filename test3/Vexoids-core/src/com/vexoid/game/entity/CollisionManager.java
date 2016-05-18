@@ -5,6 +5,7 @@ import com.vexoid.game.entity.bosses.Boss1;
 import com.vexoid.game.entity.bullets.Blue_Bullet2;
 import com.vexoid.game.entity.bullets.Red_Bullet2;
 import com.vexoid.game.entity.bullets.Yellow_Bullet2;
+import com.vexoid.game.level.LevelManager;
 
 public class CollisionManager {
 	
@@ -24,7 +25,7 @@ public class CollisionManager {
 					if (e.entityDied){
 						SoundManager.hit6.play(0.4f);
 						entityManager.addToEnemiesKilled(100);
-						entityManager.addToNullEnemiesKilled(100);
+						LevelManager.getCurrentLevel().addToLevelScore(100);
 						entityManager.doExplosion(e.pos.cpy(), 25, e.texture, 5, "blue");
 						entityManager.getEntity().removeValue(e, false);
 					}
@@ -38,7 +39,7 @@ public class CollisionManager {
 					SoundManager.hit1.play(0.6f);
 					if (e.entityDied){
 						entityManager.addToEnemiesKilled(100);
-						entityManager.addToNullEnemiesKilled(100);
+						LevelManager.getCurrentLevel().addToLevelScore(100);
 						entityManager.doExplosion(e.pos.cpy(), 25, e.texture, 5, "red");
 						entityManager.getEntity().removeValue(e, false);
 					}
@@ -52,7 +53,7 @@ public class CollisionManager {
 					SoundManager.hit1.play(0.6f);
 					if (e.entityDied){
 						entityManager.addToEnemiesKilled(100);
-						entityManager.addToNullEnemiesKilled(100);
+						LevelManager.getCurrentLevel().addToLevelScore(100);
 						entityManager.doExplosion(e.pos.cpy(), 25, e.texture, 5, "yellow");
 						entityManager.getEntity().removeValue(e, false);
 					}
@@ -76,8 +77,8 @@ public class CollisionManager {
 					entityManager.doBlastEffect(m.pos.cpy(),10,m.texture, "blue");
 					SoundManager.hit1.play(0.6f);
 					if (e.entityDied){
-						entityManager.addToEnemiesKilled(100);
-						entityManager.addToNullEnemiesKilled(100);
+						entityManager.addToEnemiesKilled(250);
+						LevelManager.getCurrentLevel().addToLevelScore(250);
 						entityManager.doExplosion(e.pos.cpy(), 25, e.texture, 5, "blue");
 						entityManager.getEntity().removeValue(e, false);
 					}
@@ -90,8 +91,8 @@ public class CollisionManager {
 					entityManager.doBlastEffect(m.pos.cpy(),10,m.texture, "red");
 					SoundManager.hit1.play(0.6f);
 					if (e.entityDied){
-						entityManager.addToEnemiesKilled(100);
-						entityManager.addToNullEnemiesKilled(100);
+						entityManager.addToEnemiesKilled(250);
+						LevelManager.getCurrentLevel().addToLevelScore(250);
 						entityManager.doExplosion(e.pos.cpy(), 25, e.texture, 5, "red");
 						entityManager.getEntity().removeValue(e, false);
 					}
@@ -105,8 +106,8 @@ public class CollisionManager {
 					SoundManager.hit1.play(0.6f);
 					if (e.entityDied){
 						SoundManager.hit6.play(0.4f);
-						entityManager.addToEnemiesKilled(100);
-						entityManager.addToNullEnemiesKilled(100);
+						entityManager.addToEnemiesKilled(250);
+						LevelManager.getCurrentLevel().addToLevelScore(250);
 						entityManager.doExplosion(e.pos.cpy(), 25, e.texture, 5, "yellow");
 						entityManager.getEntity().removeValue(e, false);
 					}
@@ -130,8 +131,8 @@ public class CollisionManager {
 					entityManager.doBlastEffect(m.pos.cpy(),10,m.texture, "blue");
 					SoundManager.hit1.play(0.6f);
 					if (e.entityDied){
-						entityManager.addToEnemiesKilled(100);
-						entityManager.addToNullEnemiesKilled(100);
+						entityManager.addToEnemiesKilled(350);
+						LevelManager.getCurrentLevel().addToLevelScore(350);
 						entityManager.doExplosion(e.pos.cpy(), 25, e.texture, 5, "blue");
 						entityManager.getEntity().removeValue(e, false);
 					}
@@ -144,8 +145,8 @@ public class CollisionManager {
 					entityManager.doBlastEffect(m.pos.cpy(),10,m.texture, "red");
 					SoundManager.hit1.play(0.6f);
 					if (e.entityDied){
-						entityManager.addToEnemiesKilled(100);
-						entityManager.addToNullEnemiesKilled(100);
+						entityManager.addToEnemiesKilled(350);
+						LevelManager.getCurrentLevel().addToLevelScore(350);
 						entityManager.doExplosion(e.pos.cpy(), 25, e.texture, 5, "red");
 						entityManager.getEntity().removeValue(e, false);
 					}
@@ -159,8 +160,8 @@ public class CollisionManager {
 					SoundManager.hit1.play(0.6f);
 					if (e.entityDied){
 						SoundManager.hit5.play(0.4f);
-						entityManager.addToEnemiesKilled(100);
-						entityManager.addToNullEnemiesKilled(100);
+						entityManager.addToEnemiesKilled(350);
+						LevelManager.getCurrentLevel().addToLevelScore(350);
 						entityManager.doExplosion(e.pos.cpy(), 25, e.texture, 5, "yellow");
 						entityManager.getEntity().removeValue(e, false);
 					}
@@ -184,8 +185,8 @@ public class CollisionManager {
 					entityManager.doBlastEffect(m.pos.cpy(),10,m.texture, "blue");
 					SoundManager.hit1.play(0.7f);
 					if (e.entityDied){
-						entityManager.addToEnemiesKilled(100);
-						entityManager.addToNullEnemiesKilled(100);
+						entityManager.addToEnemiesKilled(1000);
+						LevelManager.getCurrentLevel().addToLevelScore(1000);
 						entityManager.doExplosion(e.pos.cpy(), 25, e.texture, 5, "blue");
 						entityManager.getEntity().removeValue(e, false);
 					}
@@ -199,8 +200,8 @@ public class CollisionManager {
 					SoundManager.hit1.play(0.6f);
 					if (e.entityDied){
 						SoundManager.hit5.play(0.6f);
-						entityManager.addToEnemiesKilled(100);
-						entityManager.addToNullEnemiesKilled(100);
+						entityManager.addToEnemiesKilled(1000);
+						LevelManager.getCurrentLevel().addToLevelScore(1000);
 						entityManager.doExplosion(e.pos.cpy(), 25, e.texture, 5, "red");
 						entityManager.getEntity().removeValue(e, false);
 					}
@@ -213,8 +214,8 @@ public class CollisionManager {
 					entityManager.doBlastEffect(m.pos.cpy(),10,m.texture, "yellow");
 					SoundManager.hit1.play(0.6f);
 					if (e.entityDied){
-						entityManager.addToEnemiesKilled(100);
-						entityManager.addToNullEnemiesKilled(100);
+						entityManager.addToEnemiesKilled(1000);
+						LevelManager.getCurrentLevel().addToLevelScore(1000);
 						entityManager.doExplosion(e.pos.cpy(), 25, e.texture, 5, "yellow");
 						entityManager.getEntity().removeValue(e, false);
 					}
@@ -223,7 +224,6 @@ public class CollisionManager {
 			if (e.getBounds().overlaps(entityManager.getPlayer().getBounds())){
 				entityManager.getPlayer().decreaseHealth(25 * entityManager.getDamageMultiplier());
 				SoundManager.hit2.play(0.3f);
-				entityManager.getEntity().removeValue(e, false);
 				entityManager.doBlastEffect(e.pos.cpy(),10,e.texture, "red");
 			}
 		}

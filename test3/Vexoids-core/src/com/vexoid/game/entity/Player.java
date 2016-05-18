@@ -259,12 +259,13 @@ public class Player extends Entity {
 			float var2 = 3;
 
 			tempClock++;
-			if (tempClock >= 80) { //
-				redBulletFire = true; // This all just handles the red bullet
-										// and when it should fire
-				tempClock = 0; //
-			} else //
-				redBulletFire = false; //
+			if (tempClock >= 80) {
+				if(entityManager.getPlayerRedBullets().size > 0)
+					SoundManager.shot5.play(0.2f);
+				redBulletFire = true; 			// This all just handles the red bullet
+				tempClock = 0; 					// and when it should fire
+			} else 								//
+				redBulletFire = false;
 
 			if (Gdx.input.isKeyPressed(Options.controls.getInt("fire")) || dir == 1 || dir == 2) {
 				if (bulletMode == "light")
@@ -289,6 +290,7 @@ public class Player extends Entity {
 						if (r == 1)
 							entityManager.addEntity(new Red_Bullet2(point2,
 									new Vector2(MathUtils.random(-spread - var2, spread), 18), this));
+						SoundManager.shot6.play(0.05f);
 						lastFire = System.currentTimeMillis();
 					}
 				if (bulletMode == "energy")

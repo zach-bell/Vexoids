@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="ASCII"?>
 <application:Application xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:advanced="http://www.eclipse.org/ui/2010/UIModel/application/ui/advanced" xmlns:application="http://www.eclipse.org/ui/2010/UIModel/application" xmlns:basic="http://www.eclipse.org/ui/2010/UIModel/application/ui/basic" xmlns:menu="http://www.eclipse.org/ui/2010/UIModel/application/ui/menu" xmi:id="_EfaogQm_EeaIea0vP4SsYQ" elementId="org.eclipse.e4.legacy.ide.application" contributorURI="platform:/plugin/org.eclipse.platform" selectedElement="_Efaoggm_EeaIea0vP4SsYQ" bindingContexts="_EfaohAm_EeaIea0vP4SsYQ">
-  <persistedState key="memento" value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xD;&#xA;&lt;workbench>&#xD;&#xA;&lt;mruList>&#xD;&#xA;&lt;file factoryID=&quot;org.eclipse.jdt.ui.ClassFileEditorInputFactory&quot; id=&quot;org.eclipse.jdt.ui.ClassFileEditor&quot; name=&quot;LwjglApplication.class&quot; tooltip=&quot;com.badlogic.gdx.backends.lwjgl.LwjglApplication&quot;>&#xD;&#xA;&lt;persistable org.eclipse.jdt.ui.ClassFileIdentifier=&quot;=Vexoids-desktop/C:\/Users\/zachary816\/.gradle\/caches\/modules-2\/files-2.1\/com.badlogicgames.gdx\/gdx-backend-lwjgl\/1.9.1\/44e1e89d95df3f095bc0da62688f28f622f52c10\/gdx-backend-lwjgl-1.9.1.jar&amp;lt;com.badlogic.gdx.backends.lwjgl(LwjglApplication.class&quot;/>&#xD;&#xA;&lt;/file>&#xD;&#xA;&lt;file factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; id=&quot;org.eclipse.jdt.ui.CompilationUnitEditor&quot; name=&quot;SoundManager.java&quot; tooltip=&quot;Vexoids-core/src/com/vexoid/game/SoundManager.java&quot;>&#xD;&#xA;&lt;persistable path=&quot;/Vexoids-core/src/com/vexoid/game/SoundManager.java&quot;/>&#xD;&#xA;&lt;/file>&#xD;&#xA;&lt;file factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; id=&quot;org.eclipse.jdt.ui.CompilationUnitEditor&quot; name=&quot;DesktopLauncher.java&quot; tooltip=&quot;Vexoids-desktop/src/com/vexoid/game/desktop/DesktopLauncher.java&quot;>&#xD;&#xA;&lt;persistable path=&quot;/Vexoids-desktop/src/com/vexoid/game/desktop/DesktopLauncher.java&quot;/>&#xD;&#xA;&lt;/file>&#xD;&#xA;&lt;/mruList>&#xD;&#xA;&lt;/workbench>"/>
+  <persistedState key="memento" value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xD;&#xA;&lt;workbench>&#xD;&#xA;&lt;mruList>&#xD;&#xA;&lt;file factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; id=&quot;org.eclipse.jdt.ui.CompilationUnitEditor&quot; name=&quot;TextureManager.java&quot; tooltip=&quot;Vexoids-core/src/com/vexoid/game/TextureManager.java&quot;>&#xD;&#xA;&lt;persistable path=&quot;/Vexoids-core/src/com/vexoid/game/TextureManager.java&quot;/>&#xD;&#xA;&lt;/file>&#xD;&#xA;&lt;file factoryID=&quot;org.eclipse.jdt.ui.ClassFileEditorInputFactory&quot; id=&quot;org.eclipse.jdt.ui.ClassFileEditor&quot; name=&quot;LwjglApplication.class&quot; tooltip=&quot;com.badlogic.gdx.backends.lwjgl.LwjglApplication&quot;>&#xD;&#xA;&lt;persistable org.eclipse.jdt.ui.ClassFileIdentifier=&quot;=Vexoids-desktop/C:\/Users\/zachary816\/.gradle\/caches\/modules-2\/files-2.1\/com.badlogicgames.gdx\/gdx-backend-lwjgl\/1.9.1\/44e1e89d95df3f095bc0da62688f28f622f52c10\/gdx-backend-lwjgl-1.9.1.jar&amp;lt;com.badlogic.gdx.backends.lwjgl(LwjglApplication.class&quot;/>&#xD;&#xA;&lt;/file>&#xD;&#xA;&lt;file factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; id=&quot;org.eclipse.jdt.ui.CompilationUnitEditor&quot; name=&quot;SoundManager.java&quot; tooltip=&quot;Vexoids-core/src/com/vexoid/game/SoundManager.java&quot;>&#xD;&#xA;&lt;persistable path=&quot;/Vexoids-core/src/com/vexoid/game/SoundManager.java&quot;/>&#xD;&#xA;&lt;/file>&#xD;&#xA;&lt;file factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; id=&quot;org.eclipse.jdt.ui.CompilationUnitEditor&quot; name=&quot;DesktopLauncher.java&quot; tooltip=&quot;Vexoids-desktop/src/com/vexoid/game/desktop/DesktopLauncher.java&quot;>&#xD;&#xA;&lt;persistable path=&quot;/Vexoids-desktop/src/com/vexoid/game/desktop/DesktopLauncher.java&quot;/>&#xD;&#xA;&lt;/file>&#xD;&#xA;&lt;/mruList>&#xD;&#xA;&lt;/workbench>"/>
   <tags>activeSchemeId:org.eclipse.ui.defaultAcceleratorConfiguration</tags>
   <tags>ModelMigrationProcessor.001</tags>
   <children xsi:type="basic:TrimmedWindow" xmi:id="_Efaoggm_EeaIea0vP4SsYQ" elementId="IDEWindow" contributorURI="platform:/plugin/org.eclipse.platform" selectedElement="_EoBx8Am_EeaIea0vP4SsYQ" label="%trimmedwindow.label.eclipseSDK" x="130" y="130" width="1024" height="768">
@@ -119,21 +119,9 @@
       <tags>categoryTag:Help</tags>
     </sharedElements>
     <sharedElements xsi:type="advanced:Area" xmi:id="_Evu8cAm_EeaIea0vP4SsYQ" elementId="org.eclipse.ui.editorss" selectedElement="_Evu8cQm_EeaIea0vP4SsYQ">
-      <children xsi:type="basic:PartStack" xmi:id="_Evu8cQm_EeaIea0vP4SsYQ" elementId="org.eclipse.e4.primaryDataStack" selectedElement="_MZQSkAm_EeaIea0vP4SsYQ">
+      <children xsi:type="basic:PartStack" xmi:id="_Evu8cQm_EeaIea0vP4SsYQ" elementId="org.eclipse.e4.primaryDataStack">
         <tags>org.eclipse.e4.primaryDataStack</tags>
         <tags>EditorStack</tags>
-        <children xsi:type="basic:Part" xmi:id="_LHgW0Am_EeaIea0vP4SsYQ" elementId="org.eclipse.e4.ui.compatibility.editor" contributionURI="bundleclass://org.eclipse.ui.workbench/org.eclipse.ui.internal.e4.compatibility.CompatibilityEditor" label="DesktopLauncher.java" iconURI="platform:/plugin/org.eclipse.jdt.ui/icons/full/obj16/jcu_obj.png" closeable="true">
-          <persistedState key="memento" value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xD;&#xA;&lt;editor id=&quot;org.eclipse.jdt.ui.CompilationUnitEditor&quot; name=&quot;DesktopLauncher.java&quot; partName=&quot;DesktopLauncher.java&quot; title=&quot;DesktopLauncher.java&quot; tooltip=&quot;Vexoids-desktop/src/com/vexoid/game/desktop/DesktopLauncher.java&quot;>&#xD;&#xA;&lt;input factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; path=&quot;/Vexoids-desktop/src/com/vexoid/game/desktop/DesktopLauncher.java&quot;/>&#xD;&#xA;&lt;editorState selectionHorizontalPixel=&quot;0&quot; selectionLength=&quot;0&quot; selectionOffset=&quot;0&quot; selectionTopPixel=&quot;0&quot;/>&#xD;&#xA;&lt;/editor>"/>
-          <tags>Editor</tags>
-          <tags>org.eclipse.jdt.ui.CompilationUnitEditor</tags>
-          <tags>removeOnHide</tags>
-        </children>
-        <children xsi:type="basic:Part" xmi:id="_MZQSkAm_EeaIea0vP4SsYQ" elementId="org.eclipse.e4.ui.compatibility.editor" contributionURI="bundleclass://org.eclipse.ui.workbench/org.eclipse.ui.internal.e4.compatibility.CompatibilityEditor" label="SoundManager.java" iconURI="platform:/plugin/org.eclipse.jdt.ui/icons/full/obj16/jcu_obj.png" closeable="true">
-          <persistedState key="memento" value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xD;&#xA;&lt;editor id=&quot;org.eclipse.jdt.ui.CompilationUnitEditor&quot; name=&quot;SoundManager.java&quot; partName=&quot;SoundManager.java&quot; title=&quot;SoundManager.java&quot; tooltip=&quot;Vexoids-core/src/com/vexoid/game/SoundManager.java&quot;>&#xD;&#xA;&lt;input factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; path=&quot;/Vexoids-core/src/com/vexoid/game/SoundManager.java&quot;/>&#xD;&#xA;&lt;editorState selectionHorizontalPixel=&quot;0&quot; selectionLength=&quot;0&quot; selectionOffset=&quot;513&quot; selectionTopPixel=&quot;0&quot;/>&#xD;&#xA;&lt;/editor>"/>
-          <tags>Editor</tags>
-          <tags>org.eclipse.jdt.ui.CompilationUnitEditor</tags>
-          <tags>removeOnHide</tags>
-        </children>
       </children>
     </sharedElements>
     <sharedElements xsi:type="basic:Part" xmi:id="_Ev0cAAm_EeaIea0vP4SsYQ" elementId="org.eclipse.ui.navigator.ProjectExplorer" contributionURI="bundleclass://org.eclipse.ui.workbench/org.eclipse.ui.internal.e4.compatibility.CompatibilityView" label="Project Explorer" iconURI="platform:/plugin/org.eclipse.ui.navigator.resources/icons/full/eview16/resource_persp.gif" tooltip="" closeable="true">
@@ -209,7 +197,7 @@
       </children>
       <children xsi:type="menu:ToolBar" xmi:id="_ErZ2EAm_EeaIea0vP4SsYQ" elementId="org.eclipse.ui.workbench.file">
         <tags>Draggable</tags>
-        <children xsi:type="menu:HandledToolItem" xmi:id="_cj-_UAnAEeas1cbl0Mjifg" elementId="print" visible="false" iconURI="platform:/plugin/org.eclipse.ui/icons/full/etool16/print_edit.png" tooltip="Print" command="_Efwm6gm_EeaIea0vP4SsYQ"/>
+        <children xsi:type="menu:HandledToolItem" xmi:id="_qVSZwBhrEea9_bQ1fOJcnA" elementId="print" visible="false" iconURI="platform:/plugin/org.eclipse.ui/icons/full/etool16/print_edit.png" tooltip="Print" command="_Efwm6gm_EeaIea0vP4SsYQ"/>
       </children>
       <children xsi:type="menu:ToolBar" xmi:id="_ErZ2EQm_EeaIea0vP4SsYQ" elementId="additions" toBeRendered="false">
         <tags>toolbarSeparator</tags>
@@ -221,7 +209,7 @@
       <children xsi:type="menu:ToolBar" xmi:id="_E4DyAAm_EeaIea0vP4SsYQ" elementId="org.eclipse.search.searchActionSet">
         <tags>Draggable</tags>
       </children>
-      <children xsi:type="menu:ToolBar" xmi:id="_LL_1QAm_EeaIea0vP4SsYQ" elementId="org.eclipse.ui.edit.text.actionSet.presentation">
+      <children xsi:type="menu:ToolBar" xmi:id="_LL_1QAm_EeaIea0vP4SsYQ" elementId="org.eclipse.ui.edit.text.actionSet.presentation" visible="false">
         <tags>Draggable</tags>
       </children>
       <children xsi:type="menu:ToolBar" xmi:id="_ErZ2Ewm_EeaIea0vP4SsYQ" elementId="group.nav" toBeRendered="false">
@@ -230,7 +218,7 @@
       </children>
       <children xsi:type="menu:ToolBar" xmi:id="_EradIAm_EeaIea0vP4SsYQ" elementId="org.eclipse.ui.workbench.navigate">
         <tags>Draggable</tags>
-        <children xsi:type="menu:HandledToolItem" xmi:id="_ckBbkAnAEeas1cbl0Mjifg" elementId="org.eclipse.ui.window.pinEditor" visible="false" iconURI="platform:/plugin/org.eclipse.ui/icons/full/etool16/pin_editor.png" tooltip="Pin Editor" type="Check" command="_Efv_tQm_EeaIea0vP4SsYQ"/>
+        <children xsi:type="menu:HandledToolItem" xmi:id="_qVUO8BhrEea9_bQ1fOJcnA" elementId="org.eclipse.ui.window.pinEditor" visible="false" iconURI="platform:/plugin/org.eclipse.ui/icons/full/etool16/pin_editor.png" tooltip="Pin Editor" type="Check" command="_Efv_tQm_EeaIea0vP4SsYQ"/>
       </children>
       <children xsi:type="menu:ToolBar" xmi:id="_EradIQm_EeaIea0vP4SsYQ" elementId="group.editor" toBeRendered="false">
         <tags>toolbarSeparator</tags>

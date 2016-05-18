@@ -18,9 +18,14 @@ public class Options {
 	// https://libgdx.badlogicgames.com/nightlies/docs/api/constant-values.html#com.badlogic.gdx.Input.Keys.SYM
 	private static String defaultControlsString = "{\"up\": \"51\",\"down\":\"47\", \"left\":\"29\", \"right\":\"32\", \"fire\":\"62\","
 			+ " \"changeSpread\":\"30\",\"changeMode\":\"34\", \"slow\":\"59\"}";
+	
 	public static JSONObject controls;
+	
+	public static boolean musicAllowed = true;
+	
+	
 
-	public Options() {
+	public Options(){
 		// generate default controls
 		try {
 			controls = new JSONObject(defaultControlsString);
@@ -28,7 +33,7 @@ public class Options {
 			e.printStackTrace();
 			System.exit(1);
 		} //read controls from file
-		readControls(validateFile("C:\\\\Vexoids\\controls.txt"));
+		readControls(validateFile("C:\\\\Vexoids\\options.txt"));
 	}
 
 	// this method ensures that a file exists and creates it if needed
@@ -74,7 +79,7 @@ public class Options {
 		} catch (Exception e) {// catch all.. deletes the file then recreates with default controls
 			if (passedFile.delete()){
 				System.err.println("reverting controls file due to an error in Options readControls");
-				readControls(validateFile("C:\\\\Vexoids\\controls.txt"));
+				readControls(validateFile("C:\\\\Vexoids\\options.txt"));
 			} else {
 				System.exit(1);
 			}
@@ -84,7 +89,7 @@ public class Options {
 	// this method writes to the controls file. Takes the index and the int code of the remapped key
 	//0=up 1=down 2=left 3=right 4=fire 5=changeSpread 6=changeMode 7=slow
 	public static boolean writeControls(int index, int newControl){
-		File ctrlFile = validateFile("C:\\\\Vexoids\\controls.txt");
+		File ctrlFile = validateFile("C:\\\\Vexoids\\options.txt");
 		String temp = "error";
 		try {
 			PrintWriter w = new PrintWriter(ctrlFile);
@@ -141,6 +146,6 @@ public class Options {
 			e.printStackTrace();
 			System.exit(1);
 		}
-		readControls(validateFile("C:\\\\Vexoids\\controls.txt"));
+		readControls(validateFile("C:\\\\Vexoids\\options.txt"));
 	}
 }

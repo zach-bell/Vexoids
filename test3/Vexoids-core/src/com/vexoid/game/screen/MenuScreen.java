@@ -12,8 +12,10 @@ import com.vexoid.game.MainGame;
 import com.vexoid.game.SoundManager;
 import com.vexoid.game.TextureManager;
 import com.vexoid.game.camera.OrthoCamera;
-import com.vexoid.game.entity.TimeManager;
 import com.vexoid.game.entity.effects.Stars_Class;
+import com.vexoid.game.level.IntroLevel;
+import com.vexoid.game.level.Level1;
+import com.vexoid.game.level.LevelManager;
 
 public class MenuScreen extends Screen{
 
@@ -46,8 +48,8 @@ public class MenuScreen extends Screen{
 	private int limit=104,starLimit=limit,starToggle=0;
 	private final Array<Stars_Class> stars = new Array<Stars_Class>();
 	
-	private boolean cheatActive = false;
-	private int[] oneTime = {0,0,0};
+	private boolean cheatActive = false, cheatActive2 = false;
+	private int[] oneTime = {0,0,0,0};
 	int Switch = 0, Toggle = 1, Switch2 = 0, Toggle2 = 1;
 	
 	private void addStars(Stars_Class entity) {
@@ -110,9 +112,12 @@ public class MenuScreen extends Screen{
 			if(Gdx.input.isKeyPressed(Keys.NUM_2)){
 				if(Gdx.input.isKeyPressed(Keys.NUM_3)){
 					if(Gdx.input.isKeyPressed(Keys.NUM_4) && oneTime[0] == 0){
-						TimeManager.level = 1;
-						TimeManager.step = 9;
+						GameScreen.setLevel(new Level1());
+						GameScreen.setLevelStep(9);
+						LevelManager.setCurrentLevel(new Level1());
+						LevelManager.setCurrentLevelStep(9);
 						SoundManager.sound2.play(0.7f);
+						cheatActive2 = true;
 						oneTime[0] = 1;
 					}
 				}
@@ -129,7 +134,14 @@ public class MenuScreen extends Screen{
 				}
 			}
 		}
-		
+		if(!cheatActive2){
+			if(oneTime[3]==0){
+			GameScreen.setLevel(new IntroLevel());
+			GameScreen.setLevelStep(1);
+			LevelManager.setCurrentLevel(new IntroLevel());
+			oneTime[3] = 1;
+			}
+		}
 		if(touchedSwitch == 3){
 			screenManager.setScreen(new OptionsScreen(), difficulty);
 		}

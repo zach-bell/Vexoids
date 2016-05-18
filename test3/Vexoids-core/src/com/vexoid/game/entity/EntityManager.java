@@ -31,13 +31,13 @@ public class EntityManager {
 	private final ScreenManager screenManager;
 	private CollisionManager collisionManager = new CollisionManager(this);
 	private static Player player;
+	
 	public static int basicEnemiesCount =2;
 	public static int AdvancedEnemiesCount =-1;
 	private Texture screenEffects = TextureManager.NULL;
 	
 	String gameDifficulty;
 	public static int enemiesKilled = 0;
-	public int nullEnemiesKilled = 0;
 	public boolean isGameOver = false;
 	private float damageMultiplier, healthMultiplier;
 	public int lives;
@@ -314,9 +314,6 @@ part of it
 	public void addToEnemiesKilled(int j){
 		enemiesKilled += j;
 	}
-	public void addToNullEnemiesKilled(int j){
-		nullEnemiesKilled += j;
-	}
 	
 /********************************************
  * 		All things relating to Arrays
@@ -429,9 +426,6 @@ part of it
 	public int enemyKillScore(){
 		return enemiesKilled;
 	}
-	public int nullEnemyKillScore(){
-		return nullEnemiesKilled;
-	}
 	public boolean noEnemies() {
 		return (getBasicEnemies().size+getBasicLaserEnemies().size+getAdvancedEnemies().size <= 0);
 	}
@@ -441,6 +435,7 @@ part of it
 	public void listenForKeys(){
 		if (Gdx.input.isKeyPressed(Keys.ESCAPE)&& (screenManager.getCurrentScreen().whatScreen() == "GameScreen")){
 			endGame(true);
+			isGameOver = true;
 		}
 	}
 	public boolean isGameOver(){
@@ -464,7 +459,7 @@ part of it
 	public Vector2 getPlayerPos(){
 		return player.pos;
 	}
-	public static void movePlayer(int posX, int posY, boolean moveAllowed) {
+	public void movePlayer(int posX, int posY, boolean moveAllowed) {
 		player.playerCanMove(moveAllowed);
 		player.pos.set(posX, posY);
 	}

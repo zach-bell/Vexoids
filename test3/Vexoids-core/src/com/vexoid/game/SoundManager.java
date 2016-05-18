@@ -62,7 +62,9 @@ public class SoundManager {
 		sound.stop();
 	}	
 	public static void playMusic(){
-		CurrentMusic.play();
+		if(Options.musicAllowed){
+			CurrentMusic.play();
+		}
 	}
 	public static void stopMusic(){
 		CurrentMusic.stop();
@@ -74,10 +76,13 @@ public class SoundManager {
 		return CurrentMusic.getPosition();
 	}
 	public static void setMusic(Music music, float vol, boolean loop){
-		CurrentMusic = music;
-		CurrentMusic.play();
-		CurrentMusic.setVolume(vol);
-		CurrentMusic.setLooping(loop);
+		if(Options.musicAllowed){
+			CurrentMusic = music;
+			CurrentMusic.play();
+			CurrentMusic.setVolume(vol);
+			CurrentMusic.setLooping(loop);
+		}
+		
 	}
 	public static Music getMusic(){
 		return CurrentMusic;

@@ -17,6 +17,10 @@ public class TextureManager {
 	public static Texture DIFFICULTY_HARD = new Texture(Gdx.files.internal("assets/image/gui/difficulty_3.png"));
 	public static Texture DIFFICULTY_VEXOID = new Texture(Gdx.files.internal("assets/image/gui/difficulty_4.png"));
 	
+	public static Texture BUTTON_ROUNDED = new Texture(Gdx.files.internal("assets/image/gui/button_rounded.png"));
+	public static Texture BUTTON_SQUARE_OFF = new Texture(Gdx.files.internal("assets/image/gui/button_square_off.png"));
+	public static Texture BUTTON_SQUARE_ON = new Texture(Gdx.files.internal("assets/image/gui/button_square_on.png"));
+	
 //	Bullets
 	//	Player Bullets
 	public static Texture BULLET1 = new Texture(Gdx.files.internal("assets/image/bullets/bullet1.png"));
